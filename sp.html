@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>BurlaSoft - Descarga BurlaOS para ComputerCraft</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #000000, #333333); /* Fondo con degradado */
+            font-family: 'Verdana', sans-serif; /* Fuente moderna */
+            color: #FFFFFF; /* Texto blanco */
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #555555; /* Color de fondo del menú */
+            padding: 15px; /* Espacio para el menú */
+            text-align: center; /* Menú centrado */
+            position: fixed; /* Menú fijo para navegación fácil */
+            top: 0; /* Posición superior */
+            width: 100%; /* Ancho completo */
+            z-index: 100; /* Prioridad del menú */
+        }
+        nav a {
+            color: #00FF00; /* Color de los enlaces */
+            text-decoration: none; /* Sin subrayado */
+            font-weight: bold; /* Negrita para enlaces */
+            padding: 10px; /* Espacio para enlaces */
+            transition: color 0.3s, background-color 0.3s; /* Transiciones suaves */
+        }
+        nav a:hover {
+            background-color: #333333; /* Fondo al pasar el cursor */
+            color: #FF00FF; /* Cambio de color al pasar el cursor */
+        }
+        header {
+            background-color: #444444; /* Fondo del encabezado */
+            padding: 20px; /* Espacio para el encabezado */
+            text-align: center; /* Texto centrado */
+        }
+        h1 {
+            color: #FFCC00; /* Color del título */
+            text-shadow: 2px 2px #000000; /* Sombra para el título */
+            font-size: 36px; /* Tamaño del título */
+        }
+        .content {
+            padding: 30px; /* Espacio para el contenido */
+            margin-top: 70px; /* Dejar espacio para el menú fijo */
+            border-radius: 10px; /* Bordes redondeados */
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo ligeramente transparente */
+            box-shadow: 5px 5px 15px #000000; /* Sombra para profundidad */
+        }
+        .download-button {
+            display: inline-block; /* Botón en línea */
+            padding: 15px; /* Espacio para el botón */
+            background-color: #0000FF; /* Color del botón */
+            color: #FFFFFF; /* Texto blanco */
+            border: 2px sólido #FFCC00; /* Bordes del botón */
+            text-decoration: none; /* Sin subrayado */
+            font-weight: bold; /* Texto en negrita */
+            font-size: 16px; /* Tamaño del texto */
+            transition: background-color 0.3s, border-color 0.3s; /* Efectos de transición */
+            border-radius: 5px; /* Bordes redondeados */
+            box-shadow: 3px 3px 10px #000000; /* Sombra para profundidad */
+        }
+        .download-button:hover {
+            background-color: #FFCC00; /* Color al pasar el cursor */
+            border-color: #0000FF; /* Cambio del borde al pasar el cursor */
+            color: #000000; /* Cambio del texto */
+        }
+        .back-to-top {
+            position: fixed; /* Posición fija */
+            bottom: 20px; /* Parte inferior */
+            right: 20px; /* Parte derecha */
+            background-color: #FF0000; /* Color del botón */
+            color: #FFFFFF; /* Texto blanco */
+            text-decoration: none; /* Sin subrayado */
+            padding: 10px; /* Espacio para el botón */
+            border-radius: 50%; /* Forma redondeada */
+            box-shadow: 2px 2px 10px #000000; /* Sombra para profundidad */
+        }
+        .back-to-top:hover {
+            background-color: #FFFFFF; /* Cambio de color al pasar el cursor */
+            color: #FF0000; /* Cambio de texto */
+        }
+        footer {
+            background-color: #444444; /* Fondo del pie de página */
+            color: #FFFFFF; /* Texto blanco */
+            text-align: center; /* Texto centrado */
+            padding: 20px; /* Espacio para el pie de página */
+            border-top: 2px sólido #FF0000; /* Bordes distintivos */
+        }
+        .social-links a {
+            color: #FFCC00; /* Color de enlaces de redes sociales */
+            text-decoration: none; /* Sin subrayado */
+            padding: 10px; /* Espacio para enlaces */
+        }
+    </style>
+    <!-- Media queries para diseño responsive -->
+    <style>
+        @media (max-width: 600px) {
+            .content {
+                padding: 15px; /* Ajustar el padding para dispositivos móviles */
+                margen-top: 90px; /* Ajustar el margen para el menú fijo */
+            }
+            .download-button {
+                font-size: 14px; /* Reducir el tamaño del texto para móviles */
+            }
+            .back-to-top {
+                bottom: 10px; /* Ajustar posición para móviles */
+                right: 10px; /* Ajustar posición para móviles */
+                padding: 8px; /* Espacio para el botón */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#burlaos">BurlaOS</a> |
+        <a href="#software-variado">Software Variado</a> |
+        <a href="#versiones-anteriores">Versiones Anteriores</a> |
+        <a href="#contacto">Contacto</a> |
+        <a href="#faqs">FAQs</a> <!-- Enlace para preguntas frecuentes -->
+    </nav>
+    
+    <header> <!-- Encabezado -->
+        <h1>Bienvenidos a BurlaSoft</h1>
+        <p>Descarga el sistema operativo BurlaOS para ComputerCraft</p> <!-- Descripción clara -->
+    </header>
+    
+    <div class="content" id="burlaos"> <!-- Sección para BurlaOS -->
+        <h2>Descargar BurlaOS</h2>
+        <p>BurlaOS es un sistema operativo para ComputerCraft, el mod de Minecraft que permite programación y automatización.</p>
+        <p>Descarga la última versión aquí:</p>
+        <a class="download-button" href="burlaos-latest.zip">Descargar BurlaOS</a> <!-- Botón de descarga -->
+    </div>
+    
+    <div class="content" id="software-variado"> <!-- Sección de software variado -->
+        <h2>Software Variado</h2>
+        <p>Encuentra enlaces para descargar software útil para ComputerCraft y otros proyectos:</p>
+        <ul>
+            <li><a href="office-suite.zip">Suite de Oficina</a> - Herramientas para productividad y oficina.</li>
+            <li><a href="graphic-editor.zip">Editor Gráfico</a> - Software para diseño y edición de imágenes.</li>
+            <li><a href="media-player.zip">Reproductor Multimedia</a> - Para reproducir música y videos.</li>
+            <li><a href="web-browser.zip">Navegador Web</a> - Para navegación por internet.</li>
+        </ul>
+    </div>
+    
+    <div class="content" id="versiones-anteriores"> <!-- Sección para versiones anteriores -->
+        <h2>Versiones Anteriores de BurlaOS</h2>
+        <p>Encuentra y descarga versiones anteriores de BurlaOS para ComputerCraft:</p>
+        <ul>
+            <li><a href="burlaos-v1.zip">BurlaOS Versión 1</a></li>
+            <li><a href="burlaos-v2.zip">BurlaOS Versión 2</a></li>
+            <li><a href="burlaos-v3.zip">BurlaOS Versión 3</a></li>
+        </ul>
+    </div>
+    
+    <div class="content" id="contacto"> <!-- Sección de contacto -->
+        <h2>Contacto</h2>
+        <p>Para soporte técnico o consultas, puedes contactarnos:</p>
+        <p>Correo electrónico: <a href="mailto:contacto@burlasoft.com">contacto@burlasoft.com</a></p> <!-- Dirección de correo electrónico -->
+        <p>Teléfono: 123-456-7890</p> <!-- Número de teléfono -->
+    </div>
+    
+    <div class="content" id="faqs"> <!-- Sección de preguntas frecuentes -->
+        <h2>Preguntas Frecuentes</h2>
+        <ul>
+            <li>¿Qué es BurlaOS? - BurlaOS es un sistema operativo para ComputerCraft.</li>
+            <li>¿Cómo se instala? - Descarga el archivo y sigue las instrucciones.</li>
+            <li>¿Dónde puedo encontrar ayuda? - Contáctanos o visita nuestro sitio web.</li>
+        </ul>
+    </div>
+    
+    <a class="back-to-top" href="#top">▲</a> <!-- Enlace para volver a la parte superior -->
+    
+    <footer> <!-- Pie de página -->
+        <p>© 1995-2024 BurlaSoft. Todos los derechos reservados.</p> <!-- Derechos reservados -->
+        <p>Contador de visitas: 12345</p> <!-- Contador de visitas -->
+        <div class="social-links"> <!-- Enlaces a redes sociales -->
+            <a href="https://twitter.com/burlasoft">Twitter</a> |
+            <a href="https://www.facebook.com/burlasoft">Facebook</a> |
+            <a href="https://www.instagram.com/burlasoft">Instagram</a>
+        </div>
+    </footer>
+</body>
+</html>
