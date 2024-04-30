@@ -77,29 +77,53 @@
         <h2>Pre-Installation Requirements</h2> <!-- Section for pre-installation requirements -->
         <p>Before you start, make sure you have the following:</p>
         <ul>
-            <li>Computer with ComputerCraft installed.</li> <!-- Requirement for ComputerCraft -->
+            <li>Minecraft with ComputerCraft installed.</li> <!-- Requirement for ComputerCraft -->
             <li>Internet connection to download BurlaOS.</li> <!-- Internet requirement -->
             <li>Minimum hardware specifications:</li>
             <ul>
-                <li>Operating System: {Operating System}</li> <!-- Operating system requirement -->
-                <li>Minimum RAM: {Minimum RAM} GB</li> <!-- Minimum RAM -->
-                <li>Minimum CPU: {Minimum CPU}</li> <!-- Minimum CPU -->
+                <li>Operating System: ComputerCraft++</li> <!-- Operating system requirement -->
+                <li>Minimum Monitor: Advanced Monitor</li> <!-- Minimum RAM -->
+                <li>Minimum Computer: Advanced Computer</li> <!-- Minimum CPU -->
             </ul>
         </ul>
 
         <h2>Installation Steps</h2> <!-- Section for installation steps -->
         <div class="step"> <!-- Step-by-step instruction -->
             <h3>Step 1: Download BurlaOS</h3> <!-- Step 1 -->
-            <p>Click the download button below to download BurlaOS. Make sure you save the file in an accessible location on your computer.</p>
-            <a class="button" href="http:\\drburlao.github.io/BurlaOSlast-Computercraft.zip">Download BurlaOS</a> <!-- Download button -->
-        </div>
+            <p>Click the buttons below to download BurlaOS. One button downloads the ZIP file, another downloads the LUA installer, and the third copies the Pastebin URL to your clipboard. Make sure to save the downloaded file in an accessible location on your computer..</p>
+			
+            <a class="button" href="http:\\drburlao.github.io/BurlaOSlast-Computercraft.zip">Download BurlaOS - ZIP</a> <!-- Download button -->
+            <a class="button" href="http:\\drburlao.github.io/BurlaOSInstall.zip">Download BurlaOS Installer - LUA</a> <!-- Download button -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Botón para Copiar al Portapapeles</title>
+    <script>
+        function copiarAlPortapapeles() {
+            var texto = document.createElement("textarea");
+            texto.value = "https://pastebin.com/es2TyLuj";
+            document.body.appendChild(texto);
+            texto.select();
+            document.execCommand("copy");
+            document.body.removeChild(texto);
+            alert("Copied to clipboard");
+        }
+    </script>
+</head>
+<body>
+    <button onclick="copiarAlPortapapeles()">Get Pastebin</button>
+</body>
+</html>
+
+		</div>
         <div class="step">
             <h3>Step 2: Extract the Files</h3> <!-- Step 2 -->
-            <p>Once the download is complete, extract the ZIP file to a folder on your computer. Ensure that the extracted files are not corrupted.</p>
+            <p>If you downloaded the ZIP version, extract its contents to the root directory of a ComputerCraft computer. If you downloaded the LUA installer, run it from a ComputerCraft computer. The command 'get pastebin' will also download the LUA installer directly from the console of the ComputerCraft computer.</p>
         </div>
         <div class="step">
             <h3>Step 3: Install BurlaOS</h3> <!-- Step 3 -->
-            <p>Follow the installation instructions included in the extracted files. This usually involves running an installer and following the on-screen prompts.</p>
+            <p>Follow the instructions provided in screen promts.</p>
         </div>
 
         <h2>Creating a User Account</h2> <!-- Section for creating a user account -->
