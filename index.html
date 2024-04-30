@@ -127,8 +127,62 @@
     
     <div class="content" id="burlaos"> <!-- Section for BurlaOS -->
         <h2>Download BurlaOS v2.1</h2>
-        <p>BurlaOS is an operating system designed for ComputerCraft, the Minecraft mod that allows programming and automation.</p>
-        <p>Download the latest version here:</p>
+ <p>
+    Our project is a <strong>program launcher</strong> designed for virtual computer environments or simulators, such as Computercraft in Minecraft. It provides a terminal-based user interface that allows users to access and run programs, utilities, and games efficiently. The launcher utilizes connected peripherals to provide a seamless experience and can detect monitors and modems to extend functionality.
+  </p>
+
+  <h3>Key Features</h3>
+  <ul>
+    <li>
+      <strong>Peripheral Detection and Connection:</strong> The launcher scans for connected peripheral devices and automatically associates with available monitors and modems. This facilitates integration with additional hardware and allows for more dynamic interaction.
+    </li>
+    <li>
+      <strong>Menu Navigation:</strong> The launcher offers an interactive menu with customizable categories, allowing users to use arrow keys to navigate and the "enter" key to select and run applications. Categories can contain programs, games, file explorers, and other custom applications.
+    </li>
+    <li>
+      <strong>Customizable Interface:</strong> The launcher's design supports visual elements such as ASCII art, colored bars, and other graphic details to enhance the user experience. It also includes real-time information like an FPS counter and a digital clock to provide useful system status details.
+    </li>
+  </ul>
+
+  <h3>How It Works</h3>
+  <p>
+    The project is built on a main script that performs the following tasks:
+  </p>
+  <ol>
+    <li>
+      <strong>Detection of Monitors and Modems:</strong> Uses peripheral API functions to search for and connect devices. If a monitor is not found, the script attempts to detect it through modem communication.
+    </li>
+    <li>
+      <strong>Terminal Setup:</strong> Sets the active terminal (monitor or default screen) and adjusts text and color settings to optimize the user experience.
+    </li>
+    <li>
+      <strong>Graphical Interface Drawing:</strong> The script includes functions to clear the screen and draw elements such as ASCII art, colored bars, text, and more.
+    </li>
+    <li>
+      <strong>Keyboard Event Management:</strong> Uses an event loop to listen for keyboard input, allowing menu navigation and option selection.
+    </li>
+    <li>
+      <strong>Run Programs and Scripts:</strong> When a user selects a menu option, the script runs the associated program in a new process, enabling multitasking and parallel operations.
+    </li>
+  </ol>
+
+  <h3>Benefits and Uses</h3>
+  <ul>
+    <li>
+      <strong>Centralized Program Access:</strong> The launcher simplifies interaction with applications and utilities by grouping them in one place. This improves efficiency and reduces access time.
+    </li>
+    <li>
+      <strong>Support for Simulated Environments:</strong> Ideal for platforms like Computercraft, where accessing multiple programs can be complicated without a centralized interface.
+    </li>
+    <li>
+      <strong>Flexibility and Extendibility:</strong> The project is designed to be modular and extendable, allowing the addition of new categories and functionality as needed.
+    </li>
+  </ul>
+
+  <h3>Contributions and Support</h3>
+  <p>
+    The project is open-source and welcomes community contributions. Developers interested in participating and providing improvements are encouraged to join. For technical support or questions, visit our GitHub repository.
+  </p>        <p>Download the latest version here:</p>
         <a class="download-button" href="https://drburlao.github.io/igen.html">Download BurlaOS v2.1</a> <!-- Download button -->
     </div>
     
@@ -167,8 +221,7 @@
     <div class="content" id="contact"> <!-- Contact section -->
         <h2>Contact</h2>
         <p>For technical support or inquiries, you can contact us:</p>
-        <p>Email: <a href="mailto:contact@burlasoft.com">contact@burlasoft.com</a></p> <!-- Email address -->
-        <p>Phone: 123-456-7890</p> <!-- Phone number -->
+        <p>Github: <a href="https://github.com/DrBurlao">Contact Burlasoft</a></p> <!-- Email address -->
     </div>
     
     <div class="content" id="faqs"> <!-- FAQs section -->
