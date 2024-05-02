@@ -2,11 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BurlaSoft Light Audio Player</title>
+    <title>BurlaSoft - Light Audio Player</title>
     <!-- Include FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Styles for the audio player */
+        /* General page styles */
+        body {
+            background: linear-gradient(to bottom, #000000, #333333);
+            font-family: 'Verdana', sans-serif;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Center align text */
+        }
+        .content {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 5px 5px 15px #000000;
+            display: inline-block; /* Center content */
+            margin-top: 70px; /* Space for any fixed navigation */
+        }
         .audio-player {
             display: flex;
             flex-direction: column;
@@ -19,15 +35,13 @@
             width: 350px;
             max-width: 100%;
         }
-
         .button-row {
             display: flex;
             justify-content: space-between;
             width: 100%;
         }
-
         button {
-            background: #007BFF; /* Button color */
+            background: #007BFF;
             color: white;
             border: none;
             padding: 10px;
@@ -35,53 +49,40 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-
         button:hover {
-            background: #0056b3; /* Color on hover */
+            background: #0056b3; /* Hover color */
         }
-
         .volume-control {
             display: flex;
             align-items: center;
             gap: 10px;
             width: 100%;
         }
-
         .volume-slider {
-            width: 300px; /* Slider width */
+            width: 100%;
             background: linear-gradient(to right, #007BFF, #00CFFF);
             border-radius: 10px; /* Rounded slider */
         }
-
-        /* Styles for the graphic equalizer */
         .equalizer {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             width: 100%;
-            height: 250px; /* Equalizer height */
+            height: 450px; /* Equalizer height */
             background: #000;
             border-radius: 5px; /* Rounded edges */
             overflow: hidden; /* Prevent bars from overflowing */
         }
-
         .bar {
-            width: 5%; /* Width of each bar */
+            width: 2%; /* Width of each bar */
             transition: height 0.2s; /* Smooth transition */
-            max-height: 450px; /* Limit bar height */
+            background: #007BFF;
         }
-
-        #file-input {
-            display: none; /* Hide file input */
-        }
-
         .preset-dropdown {
             width: 100%; /* Dropdown width */
             padding: 10px; /* Padding */
             border-radius: 5px; /* Rounded dropdown */
-            margin-bottom: 10px; /* Bottom margin */
         }
-
         .playlist {
             width: 100%;
             text-align: left;
@@ -89,66 +90,85 @@
             padding: 0;
             margin: 0;
         }
-
         .playlist-item {
             padding: 5px;
             border-bottom: 1px solid #ccc;
             cursor: pointer;
         }
-
         .playlist-item.active {
             background: #007BFF; /* Active item color */
             color: white; /* White text */
         }
-
         .playlist-item:hover {
             background: #e0e0e0; /* Hover color */
+        }
+        footer {
+            background-color: #444444;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #FF0000;
+        }
+        .social-links a {
+            color: #FFCC00;
+            text-decoration: none;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <h2>Light Audio Player</h2>
-    <div class="audio-player">
-        <!-- Button to load audio files -->
-        <button onclick="document.getElementById('file-input').click()">
-            Load Audio Files
-        </button>
+    <div class="content">
+        <h2>Light Audio Player</h2>
+        <div class="audio-player">
+            <!-- Button to load audio files -->
+            <button onclick="document.getElementById('file-input').click()">
+                Load Audio Files
+            </button>
 
-        <!-- Input field for selecting multiple files -->
-        <input type="file" id="file-input" accept="audio/*" multiple onchange="loadFiles()" />
+            <!-- Input field for selecting multiple files -->
+            <input type="file" id="file-input" accept="audio/*" multiple onchange="loadFiles()" />
 
-        <!-- Equalizer presets -->
-        <select id="preset-dropdown" class="preset-dropdown" onchange="applyPreset()">
-            <option value="flat">Flat</option>
-            <option value="pop">Pop</option>
-            <option value="rock">Rock</option>
-            <option value="jazz">Jazz</option>
-            <option value="classical">Classical</option>
-        </select>
+            <!-- Equalizer presets -->
+            <select id="preset-dropdown" class="preset-dropdown" onchange="applyPreset()">
+                <option value="flat">Flat</option>
+                <option value="pop">Pop</option>
+                option value="rock">Rock</option>
+                option value="jazz">Jazz</option>
+                option value="classical">Classical</option>
+            </select>
 
-        <!-- Graphic equalizer -->
-        <div id="equalizer" class="equalizer"></div>
+            <!-- Graphic equalizer -->
+            <div id="equalizer" class="equalizer"></div>
 
-        <!-- Advanced volume control -->
-        <div class="volume-control">
-            Volume:
-            <input type="range" min="0" max="1" step="0.1" id="volume" class="volume-slider" onchange="adjustVolume()" value="1">
+            <!-- Volume control -->
+            <div class="volume-control">
+                Volume:
+                <input type="range" min="0" max="1" step="0.1" id="volume" class="volume-slider" onchange="adjustVolume()" value="1">
+            </div>
+
+            <!-- Playback controls -->
+            <div class="button-row">
+                <button onclick="rewind()"><i class="fas fa-backward"></i></button>
+                <button onclick="playPause()"><i class="fas fa-play"></i></button>
+                <button onclick="skip()"><i class="fas fa-forward"></i></button>
+                <button onclick="muteUnmute()"><i class="fas fa-volume-mute"></i></button>
+            </div>
+
+            <!-- Playlist -->
+            <ul class="playlist" id="playlist"></ul>
         </div>
-
-        <!-- Playback controls -->
-        <div class="button-row">
-            <button onclick="rewind()"><i class="fas fa-backward"></i></button>
-            <button onclick="playPause()"><i class="fas fa-play"></i></button>
-            <button onclick="skip()"><i class="fas fa-forward"></i></button>
-            <button onclick="muteUnmute()"><i class="fas fa-volume-mute"></i></button>
-        </div>
-
-        <!-- Playlist -->
-        <ul class="playlist" id="playlist"></ul>
     </div>
 
-    <!-- Audio player -->
+    <!-- Audio element for playback -->
     <audio id="my-audio"></audio>
+
+    <footer>
+        <p>© 2022-2024 BurlaSoft. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.threads.net/@bloodproof">Threads</a> |
+            <a href="https://www.instagram.com/bloodproof">Instagram</a>
+        </div>
+    </footer>
 
     <script>
         const audio = document.getElementById("my-audio");
@@ -156,6 +176,7 @@
         const volumeControl = document.getElementById("volume");
         const playlist = document.getElementById("playlist");
         const presetDropdown = document.getElementById("preset-dropdown");
+
         let audioCtx;
         let source;
         let analyser;
@@ -169,27 +190,25 @@
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 source = audioCtx.createMediaElementSource(audio);
 
-                // Create an analyser for the graphic equalizer
+                // Analyser for the equalizer
                 analyser = audioCtx.createAnalyser();
-                analyser.fftSize = 512; // FFT size for detailed data
+                analyser.fftSize = 512; // FFT size
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-                // Create filters for the adjustable equalizer
                 filters = [
-                    audioCtx.createBiquadFilter(), // Low Frequency
-                    audioCtx.createBiquadFilter(), // Mid-Low Frequency
-                    audioCtx.createBiquadFilter(), // Mid Frequency
-                    audioCtx.createBiquadFilter(), // Mid-High Frequency
-                    audioCtx.createBiquadFilter() // High Frequency
+                    audioCtx.createBiquadFilter(), // Low frequency
+                    audioCtx.createBiquadFilter(), // Mid-low frequency
+                    audioCtx.createBiquadFilter(), // Mid frequency
+                    audioCtx.createBiquadFilter(), // Mid-high frequency
+                    audioCtx.createBiquadFilter() // High frequency
                 ];
 
-                // Set filter types
-                filters[0].type = "lowshelf"; // Low frequency filter
-                filters[1].type = "peaking"; // Mid-low frequency filter
-                filters[2].type = "peaking"; // Mid frequency filter
-                filters[3].type = "peaking"; // Mid-high frequency filter
-                filters[4].type = "highshelf"; // High frequency filter
+                filters[0].type = "lowshelf";
+                filters[1].type = "peaking";
+                filters[2].type = "peaking";
+                filters[3].type = "peaking";
+                filters[4].type = "highshelf";
 
-                // Connect the filter chain
                 source.connect(filters[0]);
                 filters[0].connect(filters[1]);
                 filters[1].connect(filters[2]);
@@ -198,85 +217,40 @@
                 filters[4].connect(analyser);
                 analyser.connect(audioCtx.destination);
 
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-                applyPreset(); // Apply the initial preset
-                drawEqualizer(); // Start drawing the graphic equalizer
+                drawEqualizer();
             }
         }
 
         function drawEqualizer() {
-            requestAnimationFrame(drawEqualizer); // Request the next animation frame
+            requestAnimationFrame(drawEqualizer); // Continue drawing
 
-            analyser.getByteFrequencyData(dataArray); // Get frequency data
-            equalizer.innerHTML = ""; // Clear the graphic equalizer
+            if (analyser) {
+                analyser.getByteFrequencyData(dataArray); // Get frequency data
+                equalizer.innerHTML = ""; // Clear the current equalizer
 
-            const barCount = 200; // Number of bars
-            const barWidth = equalizer.clientWidth / barCount; // Width of each bar
-            const maxBarHeight = equalizer.clientHeight; // Maximum bar height
+                const barCount = 220; // Number of bars
+                const barWidth = equalizer.clientWidth / barCount; 
 
-            for (let i = 0; i < barCount; i++) {
-                const barHeight = Math.min(maxBarHeight, dataArray[i]); // Ensure the bar doesn't exceed the maximum height
-                const color = `rgb(${Math.min(255, barHeight * 2)}, ${Math.max(0, 255 - barHeight)}, 50)`; // Dynamic color
+                for (let i = 0; i < barCount; i++) {
+                    const barHeight = Math.min(equalizer.clientHeight, dataArray[i] * 2); // Bar height
+                    const bar = document.createElement("div");
+                    bar.className = "bar";
+                    bar.style.width = `${barWidth}px`;
+                    bar.style.height = `${barHeight}px`;
+                    bar.style.backgroundColor = `rgb(${255 - barHeight}, ${barHeight}, 100)`;
 
-                const bar = document.createElement("div");
-                bar.className = "bar";
-                bar.style.height = `${barHeight}px`;
-                bar.style.width = `${barWidth}px`;
-                bar.style.backgroundColor = color;
-
-                equalizer.appendChild(bar); // Add the bar to the equalizer
-            }
-        }
-
-        function applyPreset() {
-            const preset = presetDropdown.value;
-
-            switch (preset) {
-                case "flat":
-                    filters[0].gain.value = 0; // Flat (no equalization)
-                    filters[1].gain.value = 0;
-                    filters[2].gain.value = 0;
-                    filters[3].gain.value = 0;
-                    filters[4].gain.value = 0;
-                    break;
-                case "pop":
-                    filters[0].gain.value = 2;
-                    filters[1].gain.value = 1;
-                    filters[2].gain.value = 3;
-                    filters[3].gain.value = 2;
-                    filters[4].gain.value = 1;
-                    break;
-                case "rock":
-                    filters[0].gain.value = 3;
-                    filters[1].gain.value = 2;
-                    filters[2].gain.value = 1;
-                    filters[3].gain.value = 3;
-                    filters[4].gain.value = 2;
-                    break;
-                case "jazz":
-                    filters[0].gain.value = 1;
-                    filters[1].gain.value = 2;
-                    filters[2].gain.value = 1;
-                    filters[3].gain.value = 1;
-                    filters[4].gain.value = 1;
-                    break;
-                case "classical":
-                    filters[0].gain.value = 1;
-                    filters[1].gain.value = 0;
-                    filters[2].gain.value = 2;
-                    filters[3].gain.value = 1;
-                    filters[4].gain.value = 2;
-                    break;
+                    equalizer.appendChild(bar); // Add bar to the equalizer
+                }
             }
         }
 
         function playPause() {
             if (!audioCtx) {
-                initializeAudioContext(); // Initialize the audio context if it's the first play
+                initializeAudioContext(); // Initialize if first time
             }
 
             if (audio.paused) {
+                audioCtx.resume(); // Resume the audio context
                 audio.play();
                 document.querySelector('button[onclick="playPause()"] i').className = "fas fa-pause";
             } else {
@@ -292,7 +266,7 @@
         function skip() {
             currentTrack++;
             if (currentTrack >= files.length) {
-                currentTrack = 0; // Go back to the beginning of the list
+                currentTrack = 0; // Loop back to the start
             }
             loadCurrentTrack(); // Load the next track
         }
@@ -303,52 +277,58 @@
         }
 
         function adjustVolume() {
-            audio.volume = document.getElementById("volume").value;
+            audioCtx.resume(); // Ensure the audio context is active
+            audio.volume = volumeControl.value;
         }
 
         function loadFiles() {
             const fileInput = document.getElementById("file-input");
-            files = Array.from(fileInput.files); // Convert FileList to Array
-            currentTrack = 0; // Reset the current track index
+            files = Array.from(fileInput.files); // Convert FileList to array
+            currentTrack = 0; // Reset current track index
             updatePlaylist(); // Update the playlist
             loadCurrentTrack(); // Load the first track
         }
 
         function updatePlaylist() {
             playlist.innerHTML = ""; // Clear the playlist
+
             files.forEach((file, index) => {
                 const listItem = document.createElement("li");
                 listItem.className = "playlist-item";
-                listItem.textContent = file.name; // Display the file name
+                listItem.textContent = file.name; // File name
+
                 listItem.onclick = () => {
-                    currentTrack = index; 
+                    currentTrack = index;
                     loadCurrentTrack();
-                }; // Change the track on click
+                };
+
                 if (index === currentTrack) {
-                    listItem.classList.add("active"); // Highlight the current track
+                    listItem.classList.add("active");
+                    listItem.style.color = "white"; // Active text
+                } else {
+                    listItem.classList.remove("active");
                 }
+
                 playlist.appendChild(listItem); // Add to the playlist
             });
         }
 
         function loadCurrentTrack() {
             const currentFile = files[currentTrack];
-            const objectURL = URL.createObjectURL(currentFile); // Create a URL for the file
-            audio.src = objectURL; // Set the source for the audio player
-            audio.load(); // Load the file
-            playPause(); // Play the file
+            const objectURL = URL.createObjectURL(currentFile); // URL for the file
 
-            // Update the active class for the current track
+            audio.src = objectURL; // Set the audio source
+            audio.load(); // Load the file
+            playPause(); // Start playing
+
+            // Update the playlist
             Array.from(playlist.children).forEach((item, index) => {
+                item.classList.remove("active");
                 if (index === currentTrack) {
                     item.classList.add("active");
-                    item.style.color = 'white'; // Ensure the active text is white
-                } else {
-                    item.classList.remove("active");
-                    item.style.color = ''; // Reset to default color
+                    item.style.color = "white"; // Active color
                 }
             });
         }
     </script>
 </body>
-</html>
