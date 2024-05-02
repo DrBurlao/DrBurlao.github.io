@@ -4,109 +4,106 @@
     <title>BurlaSoft</title>
     <style>
         body {
-            background: linear-gradient(to bottom, #000000, #333333); /* Gradient background */
-            font-family: 'Verdana', sans-serif; /* Modern font */
-            color: #FFFFFF; /* White text */
+            background: linear-gradient(to bottom, #000000, #333333);
+            font-family: 'Verdana', sans-serif;
+            color: #FFFFFF;
             margin: 0;
             padding: 0;
         }
         nav {
-            background-color: #555555; /* Navigation bar background color */
-            padding: 15px; /* Padding for navigation bar */
-            text-align: center; /* Centered text */
-            position: fixed; /* Fixed navigation bar */
-            top: 0; /* At the top */
-            width: 100%; /* Full width */
-            z-index: 100; /* Navigation bar priority */
+            background-color: #555555;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
         }
         nav a {
-            color: #00FF00; /* Link color */
-            text-decoration: none; /* No underline */
-            font-weight: bold; /* Bold text */
-            padding: 10px; /* Padding between links */
-            transition: color 0.3s, background-color 0.3s; /* Smooth transitions */
+            color: #00FF00;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            transition: color 0.3s, background-color 0.3s;
         }
         nav a:hover {
-            background-color: #333333; /* Background color on hover */
-            color: #FF00FF; /* Text color on hover */
+            background-color: #333333;
+            color: #FF00FF;
         }
         header {
-            background-color: #444444; /* Header background color */
-            padding: 20px; /* Padding for header */
-            text-align: center; /* Centered text */
+            background-color: #444444;
+            padding: 20px;
+            text-align: center;
         }
         h1 {
-            color: #FFCC00; /* Title color */
-            text-shadow: 2px 2px #000000; /* Text shadow */
-            font-size: 36px; /* Font size */
+            color: #FFCC00;
+            text-shadow: 2px 2px #000000;
+            font-size: 36px;
         }
         .content {
-            padding: 30px; /* Padding for content */
-            margin-top: 70px; /* Margin to accommodate fixed navigation */
-            border-radius: 10px; /* Rounded corners */
-            background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
-            box-shadow: 5px 5px 15px #000000; /* Shadow effect */
+            padding: 30px;
+            margin-top: 70px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 5px 5px 15px #000000;
         }
         .download-button {
-            display: inline-block; /* Inline block */
-            padding: 15px; /* Padding for the button */
-            background-color: #0000FF; /* Button color */
-            color: #FFFFFF; /* Text color */
-            border: 2px solid #FFCC00; /* Border */
-            text-decoration: none; /* No underline */
-            font-weight: bold; /* Bold text */
-            font-size: 16px; /* Font size */
-            transition: background-color 0.3s, border-color 0.3s; /* Smooth transitions */
-            border-radius: 5px; /* Rounded corners */
-            box-shadow: 3px 3px 10px #000000; /* Shadow effect */
+            display: inline-block;
+            padding: 15px;
+            background-color: #0000FF;
+            color: #FFFFFF;
+            border: 2px solid #FFCC00;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 5px;
+            box-shadow: 3px 3px 10px #000000;
         }
         .download-button:hover {
-            background-color: #FFCC00; /* Background color on hover */
-            border-color: #0000FF; /* Border color on hover */
-            color: #000000; /* Text color on hover */
+            background-color: #FFCC00;
+            border-color: #0000FF;
+            color: #000000;
         }
         .back-to-top {
-            position: fixed; /* Fixed position */
-            bottom: 20px; /* At the bottom */
-            right: 20px; /* At the right */
-            background-color: #FF0000; /* Background color */
-            color: #FFFFFF; /* Text color */
-            text-decoration: none; /* No underline */
-            padding: 10px; /* Padding for the button */
-            border-radius: 50%; /* Circular shape */
-            box-shadow: 2px 2px 10px #000000; /* Shadow effect */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 10px #000000;
         }
         .back-to-top:hover {
-            background-color: #FFFFFF; /* Background color on hover */
-            color: #FF0000; /* Text color on hover */
+            background-color: #FFFFFF;
+            color: #FF0000;
         }
         footer {
-            background-color: #444444; /* Footer background color */
-            color: #FFFFFF; /* White text */
-            text-align: center; /* Centered text */
-            padding: 20px; /* Padding for footer */
-            border-top: 2px solid #FF0000; /* Border for the footer */
+            background-color: #444444;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #FF0000;
         }
         .social-links a {
-            color: #FFCC00; /* Social media link color */
-            text-decoration: none; /* No underline */
-            padding: 10px; /* Padding for social media links */
+            color: #FFCC00;
+            text-decoration: none;
+            padding: 10px;
         }
-    </style>
-    <!-- Media queries for responsive design -->
-    <style>
         @media (max-width: 600px) {
             .content {
-                padding: 15px; /* Adjust padding for mobile */
-                margin-top: 90px; /* Adjust margin for fixed navigation */
+                padding: 15px;
+                margin-top: 90px;
             }
             .download-button {
-                font-size: 14px; /* Adjust font size for mobile */
+                font-size: 14px;
             }
             .back-to-top {
-                bottom: 10px; /* Adjust position for mobile */
-                right: 10px; /* Adjust position for mobile */
-                padding: 8px; /* Adjust padding */
+                bottom: 10px;
+                right: 10px;
+                padding: 8px;
             }
         }
     </style>
@@ -114,133 +111,107 @@
 <body>
     <nav>
         <a href="#burlaos">BurlaOS</a> |
+        <a href="#audio-player">Light Audio Player</a> |
+        <a href="#arduino-esp32">Arduino/ESP32</a> | <!-- New link in the navigation bar -->
         <a href="#software-variety">Software Variety</a> |
         <a href="#previous-versions">Previous Versions</a> |
         <a href="#contact">Contact</a> |
-        <a href="#faqs">FAQs</a> <!-- Link to FAQs section -->
+        <a href="#faqs">FAQs</a>
     </nav>
     
     <header>
         <h1>Welcome to BurlaSoft</h1>
-Passionate Minecraft enthusiast and skilled programmer specializing in ComputerCraft mod. Expanding possibilities through custom scripts and systems. Join me!!!    </header>
+        <p>Passionate Minecraft enthusiast and skilled programmer specializing in ComputerCraft mod.</p>
+    </header>
     
-    <div class="content" id="burlaos"> <!-- Section for BurlaOS -->
+    <div class="content" id="burlaos"> 
         <h2>Download BurlaOS v2.1</h2>
- <p>
-    Our project is a <strong>program launcher</strong> designed for virtual computer environments or simulators, such as Computercraft in Minecraft. It provides a terminal-based user interface that allows users to access and run programs, utilities, and games efficiently. The launcher utilizes connected peripherals to provide a seamless experience and can detect monitors and modems to extend functionality.
-  </p>
+        <p>BurlaOS is a customizable operating system for ComputerCraft, designed to be lightweight and flexible for virtual computer environments in Minecraft. It features a user-friendly terminal interface, peripheral detection, and program launch capabilities.</p>
+        <h3>Key Features</h3>
+        <ul>
+            <li>Peripheral detection for monitors, modems, and other devices.</li>
+            <li>Interactive menu navigation with keyboard support.</li>
+            <li>Customizable interface with ASCII art, colored bars, and more.</li>
+            <li>Runs programs in a multitasking environment.</li>
+        </ul>
+        <p>To get started, download the latest version of BurlaOS and follow the instructions for installation.</p>
+        <a class="download-button" href="https://drburlao.github.io/igen.html">Download BurlaOS v2.1</a>
+    </div>
 
-  <h3>Key Features</h3>
-  <ul>
-    <li>
-      <strong>Peripheral Detection and Connection:</strong> The launcher scans for connected peripheral devices and automatically associates with available monitors and modems. This facilitates integration with additional hardware and allows for more dynamic interaction.
-    </li>
-    <li>
-      <strong>Menu Navigation:</strong> The launcher offers an interactive menu with customizable categories, allowing users to use arrow keys to navigate and the "enter" key to select and run applications. Categories can contain programs, games, file explorers, and other custom applications.
-    </li>
-    <li>
-      <strong>Customizable Interface:</strong> The launcher's design supports visual elements such as ASCII art, colored bars, and other graphic details to enhance the user experience. It also includes real-time information like an FPS counter and a digital clock to provide useful system status details.
-    </li>
-  </ul>
+    <div class="content" id="audio-player"> 
+        <h2>Light Audio Player</h2>
+        <p>A lightweight audio player for ComputerCraft and similar environments.</p>
+        <p>Features:</p>
+        <ul>
+            <li>Plays MP3 and WAV files.</li>
+            <li>Simple and intuitive interface.</li>
+            <li>Compatible with multiple devices.</li>
+        </ul>
+        <a class="download-button" href="https://drburlao.github.io/LightAudioPlayer.html">Online Light Audio Player</a>
+        <a class="download-button" href="https://drburlao.github.io/LightAudioPlayer.zip">Download Light Audio Player</a>
+    </div>
 
-  <h3>How It Works</h3>
-  <p>
-    The project is built on a main script that performs the following tasks:
-  </p>
-  <ol>
-    <li>
-      <strong>Detection of Monitors and Modems:</strong> Uses peripheral API functions to search for and connect devices. If a monitor is not found, the script attempts to detect it through modem communication.
-    </li>
-    <li>
-      <strong>Terminal Setup:</strong> Sets the active terminal (monitor or default screen) and adjusts text and color settings to optimize the user experience.
-    </li>
-    <li>
-      <strong>Graphical Interface Drawing:</strong> The script includes functions to clear the screen and draw elements such as ASCII art, colored bars, text, and more.
-    </li>
-    <li>
-      <strong>Keyboard Event Management:</strong> Uses an event loop to listen for keyboard input, allowing menu navigation and option selection.
-    </li>
-    <li>
-      <strong>Run Programs and Scripts:</strong> When a user selects a menu option, the script runs the associated program in a new process, enabling multitasking and parallel operations.
-    </li>
-  </ol>
-
-  <h3>Benefits and Uses</h3>
-  <ul>
-    <li>
-      <strong>Centralized Program Access:</strong> The launcher simplifies interaction with applications and utilities by grouping them in one place. This improves efficiency and reduces access time.
-    </li>
-    <li>
-      <strong>Support for Simulated Environments:</strong> Ideal for platforms like Computercraft, where accessing multiple programs can be complicated without a centralized interface.
-    </li>
-    <li>
-      <strong>Flexibility and Extendibility:</strong> The project is designed to be modular and extendable, allowing the addition of new categories and functionality as needed.
-    </li>
-  </ul>
-
-  <h3>Contributions and Support</h3>
-  <p>
-    The project is open-source and welcomes community contributions. Developers interested in participating and providing improvements are encouraged to join. For technical support or questions, visit our GitHub repository.
-  </p>        <p>Download the latest version here:</p>
-        <a class="download-button" href="https://drburlao.github.io/igen.html">Download BurlaOS v2.1</a> <!-- Download button -->
+    <div class="content" id="arduino-esp32"> <!-- New section for Arduino/ESP32 -->
+        <h2>Arduino/ESP32</h2>
+        <p>Tools and resources for Arduino and ESP32 development.</p>
+        <a class="download-button" href="https://drburlao.github.io/Arduino_ESP32.html">Download Arduino/ESP32 Resources</a> <!-- New download button -->
     </div>
     
-    <div class="content" id="software-variety"> <!-- Section for software variety -->
+    <div class="content" id="software-variety"> 
         <h2>Software Variety</h2>
         <p>Find useful software for ComputerCraft and other projects:</p>
-        <ul> <!-- List of varied software -->
+        <ul>
             <li><a href="https://drburlao.github.io/FDM.html">Floppy Disk Manager</a> - Tool.</li>
-			<li><a href="https://drburlao.github.io/TDM.html">Tape Drive Manager</a> - Tool.</li>
-			<li><a href="https://drburlao.github.io/HFL.html">Hidden Files Locator</a> - Tool.</li>
-			<li><a href="https://drburlao.github.io/TXTFE.html">TXT Explorer</a> - Explorer.</li>
-			<li><a href="https://drburlao.github.io/NTBFE.html">NTB Explorer</a> - Explorer.</li>
-			<li><a href="https://drburlao.github.io/NBSFE.html">NBS Explorer</a> - Explorer.</li>
-			<li><a href="https://drburlao.github.io/LUAFE.html">LUA Explorer</a> - Explorer.</li>
-			<li><a href="https://drburlao.github.io/MM.html">Monitor Manager</a> - Tool.</li>
-			<li><a href="https://drburlao.github.io/PM.html">Printer Manager</a> - Tool.</li>
-			<li><a href="https://drburlao.github.io/Notepad.html">Notepad</a> - Productivity.</li>
-			<li><a href="https://drburlao.github.io/Agenda.html">Agenda</a> - Productivity.</li>
-			<li><a href="https://drburlao.github.io/MDM.html">Music Disk Manager</a> - Tool.</li>
-			<li><a href="https://drburlao.github.io/TM.html">Task Manager</a> - Sys Tool.</li>
-            <li><a href="https://drburlao.github.io/Hypervisor.html">Hypervisor</a> - Sys Tool.</li>
+            <li><a href="https://drburlao.github.io/TDM.html">Tape Drive Manager</a> - Tool.</li>
+            <li><a href="https://drburlao.github.io/HFL.html">Hidden Files Locator</a> - Tool.</li>
+            <li><a href="https://drburlao.github.io/TXTFE.html">TXT Explorer</a> - Explorer.</li>
+            <li><a href="https://drburlao.github.io/NTBFE.html">NTB Explorer</a> - Explorer.</li>
+            <li><a href="https://drburlao.github.io/NBSFE.html">NBS Explorer</a> - Explorer.</li>
+            <li><a href="https://drburlao.github.io/LUAFE.html">LUA Explorer</a> - Explorer.</li>
+            <li><a href="https://drburlao.github.io/MM.html">Monitor Manager</a> - Tool.</li>
+            <li><a href="https://drburlao.github.io/PM.html">Printer Manager</a> - Tool.</li>
+            <li><a href="https://drburlao.github.io/Notepad.html">Notepad</a> - Productivity.</li>
+            <li><a href="https://drburlao.github.io/Agenda.html">Agenda</a> - Productivity.</li>
+            <li><a href="https://drburlao.github.io/MDM.html">Music Disk Manager</a> - Tool.</li>
+            <li><a href="https://drburlao.github.io/TM.html">Task Manager</a> - System Tool.</li>
+            <li><a href="https://drburlao.github.io/Hypervisor.html">Hypervisor</a> - System Tool.</li>
             <li><a href="https://drburlao.github.io/SciCalc.html">SciCalc</a> - Productivity.</li>
             <li><a href="https://drburlao.github.io/CLM.html">Colorful Lamps Manager</a> - Tool.</li>
         </ul>
     </div>
     
-    <div class="content" id="previous-versions"> <!-- Section for previous versions -->
+    <div class="content" id="previous-versions"> 
         <h2>Previous Versions of BurlaOS</h2>
         <p>Find and download older versions of BurlaOS for ComputerCraft:</p>
-        <ul> <!-- List of previous versions -->
+        <ul>
             <li><a href="https://drburlao.github.io/BurlaOSv20.zip">BurlaOS v2.0 Stable</a></li>
             <li><a href="https://drburlao.github.io/BurlaOSv15.zip">BurlaOS v1.5</a></li>
             <li><a href="https://drburlao.github.io/BurlaOSv10.zip">BurlaOS v1.0</a></li>
         </ul>
     </div>
     
-    <div class="content" id="contact"> <!-- Contact section -->
+    <div class="content" id="contact"> 
         <h2>Contact</h2>
         <p>For technical support or inquiries, you can contact us:</p>
-        <p>Github: <a href="https://github.com/DrBurlao">Contact Burlasoft</a></p> <!-- Email address -->
+        <p>GitHub: <a href="https://github.com/DrBurlao">Contact BurlaSoft</a></p>
     </div>
     
-    <div class="content" id="faqs"> <!-- FAQs section -->
+    <div class="content" id="faqs"> 
         <h2>Frequently Asked Questions</h2>
         <ul>
             <li>What is BurlaOS? - BurlaOS is an operating system for ComputerCraft.</li>
             <li>How do I install it? - Download the file and follow the instructions.</li>
-            <li>Where can I find support? - Contact us or visit our website.</li>
+            <li>Where can I get support? - You can contact us or visit our website for more information.</li>
         </ul>
     </div>
     
-    <a class="back-to-top" href="#top">▲</a> <!-- Link to go back to the top -->
+    <a class="back-to-top" href="#top">▲</a>
     
-    <footer> <!-- Footer -->
-        <p>© 2022-2024 BurlaSoft. All rights reserved.</p> <!-- Copyright information -->
-        <div class="social-links"> <!-- Social media links -->
+    <footer>
+        <p>© 2022-2024 BurlaSoft. All rights reserved.</p>
+        <div class="social-links">
             <a href="https://www.threads.net/@bloodproof">Threads</a> |
             <a href="https://www.instagram.com/bloodproof">Instagram</a>
         </div>
     </footer>
 </body>
-</html>
