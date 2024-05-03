@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Software - Burlasoft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+            background: linear-gradient(to bottom, #e3f2fd, #f9f9f9);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        nav {
+            background: linear-gradient(to right, #2196F3, #4CAF50);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #f06292;
+        }
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #444;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        li {
+            padding: 5px 0;
+            color: #444;
+        }
+        .download-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: white;
+            background-color: #2196F3;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .download-button:hover {
+            background-color: #1976D2;
+        }
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, #2196F3, #4CAF50);
+            margin: 30px 0;
+        }
+        footer {
+            background: linear-gradient(to right, #4CAF50, #2196F3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .social-links {
+            font-size: 14px;
+        }
+        .social-links a {
+            color: white;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: #FFEB3B;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 50%;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .back-to-top:hover {
+            background-color: #388E3C;
+        }
+        .credits {
+            font-size: 14px;
+            color: #888;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .copyright {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>BurlaSoft LabTech</h1>
+
+    <nav>
+        <a href="#pcr-master">PCR Master</a> |
+        <a href="#dilution-master">Dilution Master</a> |
+        <a href="#contact">Contact</a> |
+        <a href="#faqs">FAQs</a>
+    </nav>
+
+    <div class="content" id="pcr-master">
+        <h2>PCR Master</h2>
+        <p>PCR Master is specialized software for Polymerase Chain Reaction (PCR) analysis. Ideal for biochemists, molecular biologists, and lab technicians.</p>
+        <ul>
+            <li>Analyzes DNA sequences to determine molecular mass, GC content, and melting temperature.</li>
+            <li>Provides visualization tools for base composition charts.</li>
+            <li>Generates complementary sequences for PCR experiments.</li>
+            <li>Performs advanced calculations for determining dimers and codons.</li>
+        </ul>
+        <a class="download-button" href="https://drburlao.github.io/PCRMaster.html">PCR Master</a>
+    </div>
+
+    <hr> <!-- Horizontal separator between PCR Master and Dilution Master -->
+
+    <div class="content" id="dilution-master">
+        <h2>Dilution Master</h2>
+        <p>Dilution Master is a software tool for dilution calculations in laboratories. Ideal for chemists and technicians needing to simplify complex dilution calculations.</p>
+        <ul>
+            <li>Calculates concentrations of diluted solutions.</li>
+            <li>Includes standard dilution tables for various chemicals.</li>
+            <li>Generates detailed dilution reports for documentation.</li>
+        </ul>
+        <a class="download-button" href="https://drburlao.github.io/DilutionMaster.html">Dilution Master</a>
+    </div>
+
+    <hr> <!-- Horizontal separator between Dilution Master and other sections -->
+
+    <div class="content" id="contact">
+        <h2>Contact Us</h2>
+        <p>For technical support or inquiries, contact us:</p>
+        <p>Contact: <a href="https://github.com/DrBurlao">GitHub</a></p>
+
+    </div>
+
+    <hr> <!-- Horizontal separator between Contact and FAQs -->
+
+    <div class="content" id="faqs">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+        <ul>
+            <li><strong>What is PCR Master?</strong> - It's software for analyzing PCR and DNA sequences.</li>
+            <li><strong>What is Dilution Master?</strong> - It's a tool for dilution calculations in laboratories.</li>
+            <li><strong>How do I get technical support?</strong> - You can contact our support team via email or phone.</li>
+        </ul>
+    </div>
+
+    <a class="back-to-top" href="#top">▲</a>
+    
+    <footer>
+        <p>© 2024 BurlaSoft. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/bloodproof">LinkedIn</a> |
+            <a href="https://twitter.com/focodeemision">Twitter</a> |
+            <a href="https://www.instagram.com/bloodproof">Instagram</a>
+        </div>
+    </footer>
+</body>
+</html>
