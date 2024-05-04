@@ -134,7 +134,7 @@ startGameButton.addEventListener("click", () => {
                     const lane = Math.floor(Math.random() * 4);  // Random lane
                     createNote(lane, currentTime);  // Create note with sync timing
                 }
-            }, 200);  // Revisar picos cada 200 ms
+            }, 135);  // Revisar picos cada 135 ms
 
             source.onended = () => {
                 stopGame();  // Detener el juego cuando termine el audio
