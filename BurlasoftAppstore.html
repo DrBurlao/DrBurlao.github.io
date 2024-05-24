@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BurlaSoft AppStore - Android Software</title>
+<style>
+    /* Estilos para mejorar la apariencia */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+    }
+    .container {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    .app-list {
+        margin-top: 20px;
+    }
+    .app {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .app span {
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+    .app img {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        margin-right: 10px;
+    }
+    .app button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+    .app button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>BurlaSoft AppStore</h1>
+    <div class="app-list" id="apps"></div>
+</div>
+
+<script>
+// Function to load APK files from GitHub
+function loadApks() {
+    // GitHub repository URL
+    var url = 'https://api.github.com/repos/DrBurlao/AndroidTools/contents/';
+
+    // Request to GitHub API
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        // Filter and sort APK files alphabetically
+        var apks = data.filter(file => file.name.endsWith('.apk'));
+        apks.sort((a, b) => {
+            var nameA = a.name.toLowerCase();
+            var nameB = b.name.toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
+
+        // Display APK links
+        var appsDiv = document.getElementById('apps');
+        apks.forEach(apk => {
+            var appElement = document.createElement('div');
+            appElement.classList.add('app');
+
+            // Get APK name
+            var apkName = apk.name.replace('.apk', '');            
+
+            // Get APK metadata
+            getMetadata(apk.download_url)
+            .then(metadata => {
+                var appName = document.createElement('span');
+                appName.textContent = apkName;
+                var appSize = document.createElement('span');
+                appSize.textContent = 'Size: ' + formatBytes(apk.size);
+                var appVersion = document.createElement('span');
+                appVersion.textContent = 'Version: ' + metadata.version;
+                var appIcon = document.createElement('img');
+                appIcon.src = metadata.icon;
+                appIcon.alt = 'App Icon';
+
+                var downloadButton = document.createElement('button');
+                downloadButton.textContent = 'Download';
+                downloadButton.onclick = function() {
+                    window.location.href = apk.download_url;
+                };
+
+                appElement.appendChild(appIcon);
+                appElement.appendChild(appName);
+                appElement.appendChild(appVersion);
+                appElement.appendChild(appSize);
+                appElement.appendChild(downloadButton);
+                appsDiv.appendChild(appElement);
+            });
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Function to get APK metadata
+async function getMetadata(apkUrl) {
+    try {
+        // Fetch application icon using the AAPT API
+        var response = await fetch(`https://aapt.herokuapp.com/?url=${apkUrl}`);
+        var data = await response.json();
+        // Extract relevant metadata
+        var metadata = {
+            version: data.versionName,
+            icon: data.icon
+        };
+        return metadata;
+    } catch (error) {
+        console.error('Error fetching metadata:', error);
+        // Return placeholder data if there's an error
+        return {
+            version: '1.0',
+            icon: 'https://via.placeholder.com/50' // Placeholder icon URL
+        };
+    }
+}
+
+// Function to format bytes to KB, MB, GB, etc.
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// Load APKs when the page is loaded
+window.onload = loadApks;
+</script>
+</body>
+</html>
