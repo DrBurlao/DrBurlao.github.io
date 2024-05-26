@@ -4,57 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BurlaSoft AppStore - Android Software</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             text-align: center;
-            padding: 50px;
+            padding: 20px;
             background: linear-gradient(to bottom, #e3f2fd, #f9f9f9);
-            max-width: 1000px;
-            margin: auto;
-            border: 1px solid #ddd;
-            border-radius: 15px;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 24px;
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        table {
             width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
-        .app-list {
-            margin-top: 20px;
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .app {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
         }
 
-        .app span {
-            flex-grow: 1;
-            margin-right: 10px;
+        th:hover {
+            background-color: #e0e0e0;
         }
 
-        .app img {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            margin-right: 10px;
-        }
-
-        .app button {
+        button {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -63,11 +54,11 @@
             cursor: pointer;
         }
 
-        .app button:hover {
+        button:hover {
             background-color: #45a049;
         }
 
-        .back-button, .donate-button {
+        .back-button, .donate-button, .download-zip-button {
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 18px;
@@ -78,20 +69,82 @@
             cursor: pointer;
         }
 
-        .back-button:hover, .donate-button:hover {
+        .back-button:hover, .donate-button:hover, .download-zip-button:hover {
             background-color: #1976D2;
         }
+
+        #progressModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        #progressModal .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #progressBar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 8px;
+        }
+
+        #progressBar div {
+            width: 0;
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>BurlaSoft AppStore</h1>
-        <div class="app-list" id="apps"></div>
-        <button class="back-button" onclick="window.location.href='http://drburlao.github.io/index.html'">Back to BurlaSoft</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th onclick="sortTable(1)">Name</th>
+                    <th onclick="sortTable(2)">Version</th>
+                    <th onclick="sortTable(3)">Size</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody id="apps"></tbody>
+        </table>
+        <button class="back-button" onclick="window.location.href='http://drburlao.github.io'"><i class="fas fa-home"></i> Home</button>
         <button class="donate-button" onclick="window.location.href='https://www.paypal.com/donate?hosted_button_id=BLNNE5JLCV58Y'">Donate</button>
+        <button class="download-zip-button" onclick="downloadSelectedAsZip()">Download Selected as ZIP</button>
+    </div>
+
+    <div id="progressModal">
+        <div class="modal-content">
+            <h2>Preparing download...</h2>
+            <div id="progressBar"><div>0%</div></div>
+        </div>
     </div>
 
     <script>
+        let apksData = [];
+
         // Function to load APK files from GitHub
         function loadApks() {
             // GitHub repository URL
@@ -101,76 +154,62 @@
             fetch(url)
             .then(response => response.json())
             .then(data => {
-                // Filter and sort APK files alphabetically
-                var apks = data.filter(file => file.name.endsWith('.apk'));
-                apks.sort((a, b) => {
-                    var nameA = a.name.toLowerCase();
-                    var nameB = b.name.toLowerCase();
-                    if (nameA < nameB) return -1;
-                    if (nameA > nameB) return 1;
-                    return 0;
-                });
-
-                // Display APK links
-                var appsDiv = document.getElementById('apps');
-                apks.forEach(apk => {
-                    var appElement = document.createElement('div');
-                    appElement.classList.add('app');
-
-                    // Get APK name
-                    var apkName = apk.name.replace('.apk', '');            
-
-                    // Get APK metadata
-                    getMetadata(apk.download_url)
-                    .then(metadata => {
-                        var appName = document.createElement('span');
-                        appName.textContent = apkName;
-                        var appSize = document.createElement('span');
-                        appSize.textContent = 'Size: ' + formatBytes(apk.size);
-                        var appVersion = document.createElement('span');
-                        appVersion.textContent = 'Version: ' + metadata.version;
-                        var appIcon = document.createElement('img');
-                        appIcon.src = metadata.icon;
-                        appIcon.alt = 'App Icon';
-
-                        var downloadButton = document.createElement('button');
-                        downloadButton.textContent = 'Download';
-                        downloadButton.onclick = function() {
-                            window.location.href = apk.download_url;
-                        };
-
-                        appElement.appendChild(appIcon);
-                        appElement.appendChild(appName);
-                        appElement.appendChild(appVersion);
-                        appElement.appendChild(appSize);
-                        appElement.appendChild(downloadButton);
-                        appsDiv.appendChild(appElement);
-                    });
-                });
+                // Filter APK files
+                apksData = data.filter(file => file.name.endsWith('.apk'));
+                // Fetch metadata for each APK
+                return Promise.all(apksData.map(apk => getMetadata(apk.download_url).then(metadata => {
+                    apk.metadata = metadata;
+                    return apk;
+                })));
             })
+            .then(displayApks)
             .catch(error => console.error('Error:', error));
         }
 
         // Function to get APK metadata
         async function getMetadata(apkUrl) {
             try {
-                // Fetch application icon using the AAPT API
                 var response = await fetch(`https://aapt.herokuapp.com/?url=${apkUrl}`);
                 var data = await response.json();
-                // Extract relevant metadata
-                var metadata = {
-                    version: data.versionName,
-                    icon: data.icon
+                return {
+                    version: data.versionName
                 };
-                return metadata;
             } catch (error) {
                 console.error('Error fetching metadata:', error);
-                // Return placeholder data if there's an error
                 return {
-                    version: '1.0',
-                    icon: 'https://via.placeholder.com/50' // Placeholder icon URL
+                    version: '1.0'
                 };
             }
+        }
+
+        // Function to display APKs in table
+        function displayApks() {
+            var appsTable = document.getElementById('apps');
+            appsTable.innerHTML = '';
+            apksData.forEach((apk, index) => {
+                var row = appsTable.insertRow();
+                var selectCell = row.insertCell(0);
+                var nameCell = row.insertCell(1);
+                var versionCell = row.insertCell(2);
+                var sizeCell = row.insertCell(3);
+                var downloadCell = row.insertCell(4);
+
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = index;
+                selectCell.appendChild(checkbox);
+
+                var downloadButton = document.createElement('button');
+                downloadButton.textContent = 'Download';
+                downloadButton.onclick = function() {
+                    window.location.href = apk.download_url;
+                };
+
+                nameCell.textContent = apk.name.replace('.apk', '');
+                versionCell.textContent = apk.metadata.version;
+                sizeCell.textContent = formatBytes(apk.size);
+                downloadCell.appendChild(downloadButton);
+            });
         }
 
         // Function to format bytes to KB, MB, GB, etc.
@@ -181,6 +220,53 @@
             const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        // Function to sort table
+        function sortTable(columnIndex) {
+            const isNumericColumn = columnIndex === 3; // Size column is numeric
+            apksData.sort((a, b) => {
+                const valueA = columnIndex === 1 ? a.name.toLowerCase() : columnIndex === 2 ? a.metadata.version : a.size;
+                const valueB = columnIndex === 1 ? b.name.toLowerCase() : columnIndex === 2 ? b.metadata.version : b.size;
+
+                if (isNumericColumn) {
+                    return valueA - valueB;
+                }
+
+                if (valueA < valueB) return -1;
+                if (valueA > valueB) return 1;
+                return 0;
+            });
+            displayApks();
+        }
+
+        // Function to download selected APKs as a ZIP with progress bar
+        async function downloadSelectedAsZip() {
+            const zip = new JSZip();
+            const folder = zip.folder("APK_Files");
+
+            const progressModal = document.getElementById('progressModal');
+            const progressBar = document.getElementById('progressBar').firstElementChild;
+            progressModal.style.display = 'block';
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const selectedApks = Array.from(checkboxes).map(checkbox => apksData[checkbox.value]);
+
+            for (let i = 0; i < selectedApks.length; i++) {
+                const apk = selectedApks[i];
+                const response = await fetch(apk.download_url);
+                const blob = await response.blob();
+                folder.file(apk.name, blob);
+
+                const progress = Math.round(((i + 1) / selectedApks.length) * 100);
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = progress + '%';
+            }
+
+            zip.generateAsync({ type: 'blob' }).then(content => {
+                saveAs(content, "selected_apks.zip");
+                progressModal.style.display = 'none';
+            });
         }
 
         // Load APKs when the page is loaded
