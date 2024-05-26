@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cordova Commands</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 250px;
+            margin-bottom: 10px;
+        }
+        .command-button {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cordova Commands</h1>
+    <input type="text" id="projectName" placeholder="Enter Project Name">
+    <input type="text" id="exampleName" placeholder="Enter Example Name (e.g., example)">
+    <textarea id="commands" readonly></textarea>
+
+    <button class="command-button" onclick="addCommand('cordovaCreate')">Create Cordova Project</button>
+    <button class="command-button" onclick="addCommand('navigateProject')">Navigate to Project Directory</button>
+    <button class="command-button" onclick="addCommand('addPlatform')">Add Platform (e.g., android)</button>
+    <button class="command-button" onclick="addCommand('cleanProject')">Clean Project</button>
+    <button class="command-button" onclick="addCommand('buildAPK')">Build APK (Android)</button>
+    <button class="command-button" onclick="addCommand('buildBundle')">Build Bundle (Android)</button>
+    <button class="command-button" onclick="addCommand('runAndroid')">Run App on Android Device</button>
+    <button class="command-button" onclick="addCommand('listPlatforms')">List Added Platforms</button>
+    <button class="command-button" onclick="addCommand('listPlugins')">List Added Plugins</button>
+    <button class="command-button" onclick="clearCommands()">Clear Commands</button>
+
+    <button class="command-button" onclick="copyToClipboard()">Copy Commands</button>
+
+    <script>
+        var commands = [];
+
+        const commandInfo = {
+            cordovaCreate: {
+                name: 'Create Cordova Project',
+                template: (projectName, exampleName) => `cordova create ${projectName.replace(/ /g, "_")} com.${exampleName.toLowerCase()}.${projectName.replace(/ /g, "").toLowerCase()} ${projectName}`
+            },
+            navigateProject: {
+                name: 'Navigate to Project Directory',
+                template: projectName => `cd ${projectName.replace(/ /g, "_")}`
+            },
+            addPlatform: {
+                name: 'Add Platform (e.g., android)',
+                template: 'cordova platform add android'
+            },
+            cleanProject: {
+                name: 'Clean Project',
+                template: 'cordova clean'
+            },
+            buildAPK: {
+                name: 'Build APK (Android)',
+                template: 'cordova build android'
+            },
+            buildBundle: {
+                name: 'Build Bundle (Android)',
+                template: 'cordova build android --release -- --packageType=bundle'
+            },
+            runAndroid: {
+                name: 'Run App on Android Device',
+                template: 'cordova run android'
+            },
+            listPlatforms: {
+                name: 'List Added Platforms',
+                template: 'cordova platform ls'
+            },
+            listPlugins: {
+                name: 'List Added Plugins',
+                template: 'cordova plugin ls'
+            }
+        };
+
+        function addCommand(command) {
+            var projectName = document.getElementById("projectName").value.trim();
+            var exampleName = document.getElementById("exampleName").value.trim() || "example";
+
+            var commandObj = commandInfo[command];
+            if (commandObj) {
+                var newCommand = typeof commandObj.template === 'function' ?
+                    commandObj.template(projectName, exampleName) :
+                    commandObj.template;
+
+                commands.push(newCommand);
+                updateCommandsTextarea();
+            }
+        }
+
+        function updateCommandsTextarea() {
+            var textarea = document.getElementById("commands");
+            textarea.value = commands.join('\n');
+        }
+
+        function clearCommands() {
+            commands = [];
+            updateCommandsTextarea();
+        }
+
+        function copyToClipboard() {
+            var textarea = document.getElementById("commands");
+            textarea.select();
+            document.execCommand("copy");
+            alert("Commands copied to clipboard");
+        }
+    </script>
+</body>
+</html>
