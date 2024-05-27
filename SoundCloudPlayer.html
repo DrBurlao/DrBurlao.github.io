@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de SoundCloud</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to bottom, #e3f2fd, #f9f9f9);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .soundcloud-player {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button, input[type="range"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="range"] {
+            width: 150px;
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(to right, #4CAF50, #2196F3);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .social-links {
+            font-size: 14px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        @media only screen and (min-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .soundcloud-player {
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Reproductor de SoundCloud</h1>
+    
+    <div class="soundcloud-player">
+        <iframe id="soundcloud-frame" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"></iframe>
+    </div>
+
+    <div class="controls">
+        <button id="playButton" onclick="play()">Reproducir</button>
+        <button id="pauseButton" onclick="pause()" disabled>Pausar</button>
+        <button id="stopButton" onclick="stop()" disabled>Detener</button>
+        <button id="prevTrackButton" onclick="prevTrack()">Pista Anterior</button>
+        <button id="nextTrackButton" onclick="nextTrack()">Siguiente Pista</button>
+        <input type="range" min="0" max="100" value="100" id="volumeSlider" onchange="setVolume(this.value)">
+    </div>
+
+    <footer>
+        <p>© 2024 Burlasoft. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/%C3%A1lvaro-merch%C3%A1n-mart%C3%ADn-bb622610">LinkedIn</a>
+            <a href="https://twitter.com/focodeemision">Twitter</a>
+            <a href="https://www.instagram.com/bloodproof/">Instagram</a>
+        </div>
+        <div class="footer-links">
+            <a href="#">Política de privacidad</a>
+            <a href="#">Términos de servicio</a>
+        </div>
+    </footer>
+
+    <script>
+        var soundcloudFrame = document.getElementById("soundcloud-frame");
+        var soundcloudUri = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/bassrusherz&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true";
+        var playButton = document.getElementById("playButton");
+        var pauseButton = document.getElementById("pauseButton");
+        var stopButton = document.getElementById("stopButton");
+
+        soundcloudFrame.onload = function() {
+            playButton.disabled = false;
+            pauseButton.disabled = false;
+            stopButton.disabled = false;
+        };
+
+        function play() {
+            soundcloudFrame.src = soundcloudUri + "&amp;auto_play=true";
+            playButton.disabled = true;
+            pauseButton.disabled = false;
+            stopButton.disabled = false;
+        }
+
+        function pause() {
+            soundcloudFrame.contentWindow.postMessage('{"method": "pause"}', '*');
+            playButton.disabled = false;
+            pauseButton.disabled = true;
+            stopButton.disabled = false;
+        }
+
+        function stop() {
+            soundcloudFrame.src = soundcloudUri;
+            playButton.disabled = false;
+            pauseButton.disabled = true;
+            stopButton.disabled = true;
+        }
+
+        function prevTrack() {
+            soundcloudFrame.contentWindow.postMessage('{"method": "seekTo", "value": 0}', '*');
+        }
+
+        function nextTrack() {
+            soundcloudFrame.contentWindow.postMessage('{"method": "next"}', '*');
+        }
+
+        function setVolume(volume) {
+            soundcloudFrame.contentWindow.postMessage('{"method": "setVolume", "value": ' + volume + '}', '*');
+        }
+    </script>
+</body>
+</html>
