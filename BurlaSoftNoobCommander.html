@@ -54,6 +54,32 @@
             max-width: 600px;
             margin: 0 auto;
         }
+        .dropdown-container {
+            position: relative;
+        }
+        .dropdown-container input[type="text"] {
+            padding-right: 30px;
+        }
+        .dropdown-container .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            z-index: 1000;
+        }
+        .dropdown-container .dropdown-list div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown-container .dropdown-list div:hover {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -61,36 +87,23 @@
         <h1>Noob Commander</h1>
         <input type="text" id="projectName" placeholder="Enter Project Name">
         <input type="text" id="exampleName" placeholder="Enter Example Name (e.g., example)">
-        <select id="pluginName">
-            <option value="">Select Plugin</option>
-            <option value="cordova-plugin-battery-status">cordova-plugin-battery-status</option>
-            <option value="cordova-plugin-camera">cordova-plugin-camera</option>
-            <option value="cordova-plugin-device">cordova-plugin-device</option>
-            <option value="cordova-plugin-dialogs">cordova-plugin-dialogs</option>
-            <option value="cordova-plugin-file">cordova-plugin-file</option>
-            <option value="cordova-plugin-geolocation">cordova-plugin-geolocation</option>
-            <option value="cordova-plugin-globalization">cordova-plugin-globalization</option>
-            <option value="cordova-plugin-inappbrowser">cordova-plugin-inappbrowser</option>
-            <option value="cordova-plugin-media">cordova-plugin-media</option>
-            <option value="cordova-plugin-media-capture">cordova-plugin-media-capture</option>
-            <option value="cordova-plugin-network-information">cordova-plugin-network-information</option>
-            <option value="cordova-plugin-splashscreen">cordova-plugin-splashscreen</option>
-            <option value="cordova-plugin-statusbar">cordova-plugin-statusbar</option>
-            <option value="cordova-plugin-vibration">cordova-plugin-vibration</option>
-            <option value="cordova-plugin-whitelist">cordova-plugin-whitelist</option>
-            <option value="cordova-plugin-contacts">cordova-plugin-contacts</option>
-            <option value="cordova-plugin-push">cordova-plugin-push</option>
-            <option value="cordova-plugin-qrscanner">cordova-plugin-qrscanner</option>
-            <option value="cordova-plugin-ble-central">cordova-plugin-ble-central</option>
-            <option value="cordova-plugin-app-version">cordova-plugin-app-version</option>
-            <!-- Add more plugins as needed -->
-        </select>
-        <select id="platformName">
-            <option value="">Select Platform</option>
-            <option value="android">android</option>
-            <option value="ios">ios</option>
-            <!-- Add more platforms as needed -->
-        </select>
+        
+        <div class="dropdown-container">
+            <input type="text" id="pluginSearch" placeholder="Search Plugin">
+            <div class="dropdown-list" id="pluginList">
+                <!-- Plugin options will be dynamically generated here -->
+            </div>
+        </div>
+        
+        <div class="dropdown-container">
+            <input type="text" id="platformSearch" placeholder="Search Platform">
+            <div class="dropdown-list" id="platformList">
+                <div data-value="android">android</div>
+                <div data-value="ios">ios</div>
+                <!-- Add more platforms as needed -->
+            </div>
+        </div>
+        
         <textarea id="commands" readonly></textarea>
     </div>
 
@@ -112,6 +125,29 @@
 
     <script>
         var commands = [];
+        const plugins = [
+            "cordova-plugin-battery-status",
+            "cordova-plugin-camera",
+            "cordova-plugin-device",
+            "cordova-plugin-dialogs",
+            "cordova-plugin-file",
+            "cordova-plugin-geolocation",
+            "cordova-plugin-globalization",
+            "cordova-plugin-inappbrowser",
+            "cordova-plugin-media",
+            "cordova-plugin-media-capture",
+            "cordova-plugin-network-information",
+            "cordova-plugin-splashscreen",
+            "cordova-plugin-statusbar",
+            "cordova-plugin-vibration",
+            "cordova-plugin-whitelist",
+            "cordova-plugin-contacts",
+            "cordova-plugin-push",
+            "cordova-plugin-qrscanner",
+            "cordova-plugin-ble-central",
+            "cordova-plugin-app-version"
+            // Add more plugins as needed
+        ];
 
         const commandInfo = {
             cordovaCreate: {
@@ -123,7 +159,7 @@
                 template: projectName => `cd ${projectName.replace(/ /g, "_")}`
             },
             addPlatform: {
-                name: 'Add Platform (e.g., android)',
+                name: 'Add Platform',
                 template: platformName => `cordova platform add ${platformName}`
             },
             removePlatform: {
@@ -163,8 +199,8 @@
         function addCommand(command) {
             var projectName = document.getElementById("projectName").value.trim();
             var exampleName = document.getElementById("exampleName").value.trim() || "example";
-            var pluginName = document.getElementById("pluginName").value;
-            var platformName = document.getElementById("platformName").value;
+            var pluginName = document.querySelector('#pluginList .selected')?.dataset.value;
+            var platformName = document.querySelector('#platformList .selected')?.dataset.value;
 
             var commandObj = commandInfo[command];
             if (commandObj) {
@@ -208,6 +244,43 @@
             document.execCommand("copy");
             alert("Commands copied to clipboard");
         }
+
+        function setupDropdown(inputId, listId, items) {
+            var input = document.getElementById(inputId);
+            var list = document.getElementById(listId);
+
+            input.addEventListener('input', function() {
+                var filter = input.value.toLowerCase();
+                list.innerHTML = '';
+                items.filter(item => item.toLowerCase().includes(filter))
+                    .forEach(item => {
+                        var div = document.createElement('div');
+                        div.textContent = item;
+                        div.dataset.value = item;
+                        div.addEventListener('click', function() {
+                            document.querySelectorAll(`#${listId} .selected`).forEach(el => el.classList.remove('selected'));
+                            div.classList.add('selected');
+                            input.value = item;
+                            list.style.display = 'none';
+                        });
+                        list.appendChild(div);
+                    });
+                list.style.display = 'block';
+            });
+
+            input.addEventListener('focus', function() {
+                input.dispatchEvent(new Event('input'));
+            });
+
+            input.addEventListener('blur', function() {
+                setTimeout(() => {
+                    list.style.display = 'none';
+                }, 100);
+            });
+        }
+
+        setupDropdown('pluginSearch', 'pluginList', plugins);
+        setupDropdown('platformSearch', 'platformList', ['android', 'ios']);
     </script>
 </body>
 </html>
