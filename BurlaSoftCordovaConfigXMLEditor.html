@@ -115,9 +115,11 @@
                     </platform>
                 </widget>`;
 
-            // Mostrar el XML generado en una ventana emergente
-            var popup = window.open("", "_blank", "width=600,height=400,scrollbars=yes,resizable=yes");
-            popup.document.write("<pre>" + xmlString + "</pre>");
+            var blob = new Blob([xmlString], { type: 'application/xml' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'config.xml';
+            link.click();
         }
     </script>
 </body>
