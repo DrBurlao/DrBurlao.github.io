@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Widget Editor</title>
+    <title>Cordova Config Editor</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,133 +13,109 @@
             margin: 0 auto;
         }
         label {
-            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 5px;
             margin-bottom: 10px;
-            box-sizing: border-box;
         }
         button {
             padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #28a745; /* Cambiar a verde */
             border: none;
+            color: #fff;
             cursor: pointer;
-            border-radius: 4px;
+            font-size: 16px;
         }
         button:hover {
-            background-color: #45a049;
-        }
-        #fileInput {
-            margin-bottom: 20px;
+            background-color: #218838; /* Cambiar a verde más oscuro al pasar el cursor */
         }
     </style>
 </head>
 <body>
-    <h1>Editor de Widgets</h1>
-    <input type="file" id="fileInput" accept=".xml">
-    <button onclick="loadXML()">Cargar XML</button>
-    
-    <form id="widgetForm" style="display: none;">
-        <label for="name">Nombre:</label><br>
-        <input type="text" id="name" name="name"><br>
+    <h1>Cordova Config Editor</h1>
+    <form id="widget_form">
+        <label for="widget_id">Widget ID:</label>
+        <input type="text" id="widget_id" name="widget_id" value="com.example.widget"><br>
         
-        <label for="description">Descripción:</label><br>
-        <input type="text" id="description" name="description"><br>
+        <label for="widget_version">Version:</label>
+        <input type="text" id="widget_version" name="widget_version" value="1.0.0"><br>
         
-        <label for="author">Autor:</label><br>
-        <input type="text" id="author" name="author"><br>
+        <label for="widget_name">Widget Name:</label>
+        <input type="text" id="widget_name" name="widget_name" value="MyWidget"><br>
         
-        <label for="authorEmail">Email del autor:</label><br>
-        <input type="text" id="authorEmail" name="authorEmail"><br>
+        <label for="widget_description">Description:</label>
+        <input type="text" id="widget_description" name="widget_description" value="A simple widget"><br>
         
-        <label for="authorHref">URL del autor:</label><br>
-        <input type="text" id="authorHref" name="authorHref"><br>
+        <label for="widget_author">Author:</label>
+        <input type="text" id="widget_author" name="widget_author" value="author@example.com"><br>
         
-        <label for="contentSrc">Fuente de contenido:</label><br>
-        <input type="text" id="contentSrc" name="contentSrc"><br>
+        <label for="widget_author_href">Author Href:</label>
+        <input type="text" id="widget_author_href" name="widget_author_href" value="https://example.com"><br>
         
-        <label for="androidKeyStore">Almacén de claves (Android):</label><br>
-        <input type="text" id="androidKeyStore" name="androidKeyStore"><br>
+        <label for="widget_content_src">Content Src:</label>
+        <input type="text" id="widget_content_src" name="widget_content_src" value="index.html"><br>
         
-        <label for="androidKeyStorePass">Contraseña del almacén (Android):</label><br>
-        <input type="text" id="androidKeyStorePass" name="androidKeyStorePass"><br>
+        <label for="widget_allow_intent1">Allow Intent 1:</label>
+        <input type="text" id="widget_allow_intent1" name="widget_allow_intent1" value="http://*/*"><br>
         
-        <label for="androidKeyAlias">Alias de la clave (Android):</label><br>
-        <input type="text" id="androidKeyAlias" name="androidKeyAlias"><br>
+        <label for="widget_allow_intent2">Allow Intent 2:</label>
+        <input type="text" id="widget_allow_intent2" name="widget_allow_intent2" value="https://*/*"><br>
         
-        <label for="androidKeyPass">Contraseña de la clave (Android):</label><br>
-        <input type="text" id="androidKeyPass" name="androidKeyPass"><br>
+        <label for="widget_keystore">Key Store:</label>
+        <input type="text" id="widget_keystore" name="widget_keystore" value="example.keystore"><br>
         
-        <button type="button" onclick="saveXML()">Guardar XML</button>
-        <button type="button" onclick="resetForm()">Restablecer</button>
+        <label for="widget_keystore_password">Key Store Password:</label>
+        <input type="password" id="widget_keystore_password" name="widget_keystore_password" value="keystorepassword"><br>
+        
+        <label for="widget_keystore_alias">Key Store Alias:</label>
+        <input type="text" id="widget_keystore_alias" name="widget_keystore_alias" value="keyalias"><br>
+        
+        <label for="widget_key_password">Key Password:</label>
+        <input type="password" id="widget_key_password" name="widget_key_password" value="keypassword"><br>
+        
+        <button type="button" onclick="generateWidgetXML()">Generate XML</button>
     </form>
-    
-    <div id="message" style="display: none;">
-        <p>¡El archivo XML se ha guardado correctamente!</p>
-    </div>
 
     <script>
-        var xmlDoc;
+        function generateWidgetXML() {
+            var widgetId = document.getElementById("widget_id").value;
+            var widgetVersion = document.getElementById("widget_version").value;
+            var widgetName = document.getElementById("widget_name").value;
+            var widgetDescription = document.getElementById("widget_description").value;
+            var widgetAuthor = document.getElementById("widget_author").value;
+            var widgetAuthorHref = document.getElementById("widget_author_href").value;
+            var widgetContentSrc = document.getElementById("widget_content_src").value;
+            var widgetAllowIntent1 = document.getElementById("widget_allow_intent1").value;
+            var widgetAllowIntent2 = document.getElementById("widget_allow_intent2").value;
+            var widgetKeystore = document.getElementById("widget_keystore").value;
+            var widgetKeystorePassword = document.getElementById("widget_keystore_password").value;
+            var widgetKeystoreAlias = document.getElementById("widget_keystore_alias").value;
+            var widgetKeyPassword = document.getElementById("widget_key_password").value;
 
-        function loadXML() {
-            var fileInput = document.getElementById('fileInput');
-            var file = fileInput.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var parser = new DOMParser();
-                xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+            var xmlString = `<?xml version='1.0' encoding='utf-8'?>
+                <widget id="${widgetId}" version="${widgetVersion}" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+                    <name>${widgetName}</name>
+                    <description>${widgetDescription}</description>
+                    <author email="${widgetAuthor}" href="${widgetAuthorHref}">${widgetAuthor}</author>
+                    <content src="${widgetContentSrc}" />
+                    <allow-intent href="${widgetAllowIntent1}" />
+                    <allow-intent href="${widgetAllowIntent2}" />
+                    
+                    <!-- Configuración de firma para Android -->
+                    <platform name="android">
+                        <preference name="android-signing-key-store" value="${widgetKeystore}" />
+                        <preference name="android-signing-key-store-password" value="${widgetKeystorePassword}" />
+                        <preference name="android-signing-key-alias" value="${widgetKeystoreAlias}" />
+                        <preference name="android-signing-key-password" value="${widgetKeyPassword}" />
+                    </platform>
+                </widget>`;
 
-                document.getElementById("name").value = xmlDoc.querySelector("name").textContent;
-                document.getElementById("description").value = xmlDoc.querySelector("description").textContent;
-                document.getElementById("author").value = xmlDoc.querySelector("author").textContent;
-                document.getElementById("authorEmail").value = xmlDoc.querySelector("author").getAttribute("email");
-                document.getElementById("authorHref").value = xmlDoc.querySelector("author").getAttribute("href");
-                document.getElementById("contentSrc").value = xmlDoc.querySelector("content").getAttribute("src");
-                document.getElementById("androidKeyStore").value = xmlDoc.querySelector("preference[name='android-signing-key-store']").getAttribute("value");
-                document.getElementById("androidKeyStorePass").value = xmlDoc.querySelector("preference[name='android-signing-key-store-password']").getAttribute("value");
-                document.getElementById("androidKeyAlias").value = xmlDoc.querySelector("preference[name='android-signing-key-alias']").getAttribute("value");
-                document.getElementById("androidKeyPass").value = xmlDoc.querySelector("preference[name='android-signing-key-password']").getAttribute("value");
-
-                document.getElementById("widgetForm").style.display = "block";
-            };
-            reader.readAsText(file);
-        }
-
-        function saveXML() {
-            xmlDoc.querySelector("name").textContent = document.getElementById("name").value;
-            xmlDoc.querySelector("description").textContent = document.getElementById("description").value;
-            xmlDoc.querySelector("author").textContent = document.getElementById("author").value;
-            xmlDoc.querySelector("author").setAttribute("email", document.getElementById("authorEmail").value);
-            xmlDoc.querySelector("author").setAttribute("href", document.getElementById("authorHref").value);
-            xmlDoc.querySelector("content").setAttribute("src", document.getElementById("contentSrc").value);
-            xmlDoc.querySelector("preference[name='android-signing-key-store']").setAttribute("value", document.getElementById("androidKeyStore").value);
-            xmlDoc.querySelector("preference[name='android-signing-key-store-password']").setAttribute("value", document.getElementById("androidKeyStorePass").value);
-            xmlDoc.querySelector("preference[name='android-signing-key-alias']").setAttribute("value", document.getElementById("androidKeyAlias").value);
-            xmlDoc.querySelector("preference[name='android-signing-key-password']").setAttribute("value", document.getElementById("androidKeyPass").value);
-
-            var xmlString = new XMLSerializer().serializeToString(xmlDoc);
-            var blob = new Blob([xmlString], {type: "text/xml"});
-            var filename = document.getElementById('fileInput').files[0].name;
-            var a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(blob);
-
-            // Show success message
-            document.getElementById("message").style.display = "block";
-            setTimeout(function() {
-                document.getElementById("message").style.display = "none";
-            }, 3000);
-        }
-
-        function resetForm() {
-            document.getElementById("widgetForm").reset();
+            // Mostrar el XML generado en una ventana emergente
+            var popup = window.open("", "_blank", "width=600,height=400,scrollbars=yes,resizable=yes");
+            popup.document.write("<pre>" + xmlString + "</pre>");
         }
     </script>
 </body>
