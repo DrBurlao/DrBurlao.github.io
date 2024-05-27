@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cordova Config Editor</title>
     <style>
         body {
@@ -9,8 +10,7 @@
             margin: 20px;
         }
         form {
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 100%;
         }
         label {
             display: block;
@@ -22,7 +22,9 @@
             margin-bottom: 10px;
         }
         button {
-            padding: 10px 20px;
+            display: block;
+            width: 100%;
+            padding: 10px 0;
             background-color: #28a745; /* Cambiar a verde */
             border: none;
             color: #fff;
@@ -38,43 +40,43 @@
     <h1>Cordova Config Editor</h1>
     <form id="widget_form">
         <label for="widget_id">Widget ID:</label>
-        <input type="text" id="widget_id" name="widget_id" value="com.example.widget"><br>
+        <input type="text" id="widget_id" name="widget_id" value="com.example.widget">
         
         <label for="widget_version">Version:</label>
-        <input type="text" id="widget_version" name="widget_version" value="1.0.0"><br>
+        <input type="text" id="widget_version" name="widget_version" value="1.0.0">
         
         <label for="widget_name">Widget Name:</label>
-        <input type="text" id="widget_name" name="widget_name" value="MyWidget"><br>
+        <input type="text" id="widget_name" name="widget_name" value="MyWidget">
         
         <label for="widget_description">Description:</label>
-        <input type="text" id="widget_description" name="widget_description" value="A simple widget"><br>
+        <input type="text" id="widget_description" name="widget_description" value="A simple widget">
         
         <label for="widget_author">Author:</label>
-        <input type="text" id="widget_author" name="widget_author" value="author@example.com"><br>
+        <input type="text" id="widget_author" name="widget_author" value="author@example.com">
         
         <label for="widget_author_href">Author Href:</label>
-        <input type="text" id="widget_author_href" name="widget_author_href" value="https://example.com"><br>
+        <input type="text" id="widget_author_href" name="widget_author_href" value="https://example.com">
         
         <label for="widget_content_src">Content Src:</label>
-        <input type="text" id="widget_content_src" name="widget_content_src" value="index.html"><br>
+        <input type="text" id="widget_content_src" name="widget_content_src" value="index.html">
         
         <label for="widget_allow_intent1">Allow Intent 1:</label>
-        <input type="text" id="widget_allow_intent1" name="widget_allow_intent1" value="http://*/*"><br>
+        <input type="text" id="widget_allow_intent1" name="widget_allow_intent1" value="http://*/*">
         
         <label for="widget_allow_intent2">Allow Intent 2:</label>
-        <input type="text" id="widget_allow_intent2" name="widget_allow_intent2" value="https://*/*"><br>
+        <input type="text" id="widget_allow_intent2" name="widget_allow_intent2" value="https://*/*">
         
         <label for="widget_keystore">Key Store:</label>
-        <input type="text" id="widget_keystore" name="widget_keystore" value="example.keystore"><br>
+        <input type="text" id="widget_keystore" name="widget_keystore" value="example.keystore">
         
         <label for="widget_keystore_password">Key Store Password:</label>
-        <input type="password" id="widget_keystore_password" name="widget_keystore_password" value="keystorepassword"><br>
+        <input type="password" id="widget_keystore_password" name="widget_keystore_password" value="keystorepassword">
         
         <label for="widget_keystore_alias">Key Store Alias:</label>
-        <input type="text" id="widget_keystore_alias" name="widget_keystore_alias" value="keyalias"><br>
+        <input type="text" id="widget_keystore_alias" name="widget_keystore_alias" value="keyalias">
         
         <label for="widget_key_password">Key Password:</label>
-        <input type="password" id="widget_key_password" name="widget_key_password" value="keypassword"><br>
+        <input type="password" id="widget_key_password" name="widget_key_password" value="keypassword">
         
         <button type="button" onclick="generateWidgetXML()">Generate XML</button>
     </form>
