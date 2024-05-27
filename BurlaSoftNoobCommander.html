@@ -5,34 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noob Commander</title>
     <style>
-        textarea {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        input[type="text"], select, textarea {
             width: 100%;
-            height: 250px;
+            box-sizing: border-box;
+            padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 250px;
+            font-family: monospace;
         }
         .command-button {
-            margin-bottom: 5px;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .command-button:hover {
+            background-color: #45a049;
+        }
+        .command-button:active {
+            background-color: #39843c;
+        }
+        .command-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #commands-container, #buttons-container {
+            max-width: 600px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <h1>Noob Commander</h1>
-    <input type="text" id="projectName" placeholder="Enter Project Name">
-    <input type="text" id="exampleName" placeholder="Enter Example Name (e.g., example)">
-    <textarea id="commands" readonly></textarea>
+    <div id="commands-container">
+        <h1>Noob Commander</h1>
+        <input type="text" id="projectName" placeholder="Enter Project Name">
+        <input type="text" id="exampleName" placeholder="Enter Example Name (e.g., example)">
+        <select id="pluginName">
+            <option value="">Select Plugin</option>
+            <option value="cordova-plugin-battery-status">cordova-plugin-battery-status</option>
+            <option value="cordova-plugin-camera">cordova-plugin-camera</option>
+            <option value="cordova-plugin-device">cordova-plugin-device</option>
+            <option value="cordova-plugin-dialogs">cordova-plugin-dialogs</option>
+            <option value="cordova-plugin-file">cordova-plugin-file</option>
+            <option value="cordova-plugin-geolocation">cordova-plugin-geolocation</option>
+            <option value="cordova-plugin-globalization">cordova-plugin-globalization</option>
+            <option value="cordova-plugin-inappbrowser">cordova-plugin-inappbrowser</option>
+            <option value="cordova-plugin-media">cordova-plugin-media</option>
+            <option value="cordova-plugin-media-capture">cordova-plugin-media-capture</option>
+            <option value="cordova-plugin-network-information">cordova-plugin-network-information</option>
+            <option value="cordova-plugin-splashscreen">cordova-plugin-splashscreen</option>
+            <option value="cordova-plugin-statusbar">cordova-plugin-statusbar</option>
+            <option value="cordova-plugin-vibration">cordova-plugin-vibration</option>
+            <option value="cordova-plugin-whitelist">cordova-plugin-whitelist</option>
+            <option value="cordova-plugin-contacts">cordova-plugin-contacts</option>
+            <option value="cordova-plugin-push">cordova-plugin-push</option>
+            <option value="cordova-plugin-qrscanner">cordova-plugin-qrscanner</option>
+            <option value="cordova-plugin-ble-central">cordova-plugin-ble-central</option>
+            <option value="cordova-plugin-app-version">cordova-plugin-app-version</option>
+            <!-- Add more plugins as needed -->
+        </select>
+        <select id="platformName">
+            <option value="">Select Platform</option>
+            <option value="android">android</option>
+            <option value="ios">ios</option>
+            <!-- Add more platforms as needed -->
+        </select>
+        <textarea id="commands" readonly></textarea>
+    </div>
 
-    <button class="command-button" onclick="addCommand('cordovaCreate')">Create Cordova Project</button>
-    <button class="command-button" onclick="addCommand('navigateProject')">Navigate to Project Directory</button>
-    <button class="command-button" onclick="addCommand('addPlatform')">Add Platform (e.g., android)</button>
-    <button class="command-button" onclick="addCommand('cleanProject')">Clean Project</button>
-    <button class="command-button" onclick="addCommand('buildAPK')">Build APK (Android)</button>
-    <button class="command-button" onclick="addCommand('buildBundle')">Build Bundle (Android)</button>
-    <button class="command-button" onclick="addCommand('runAndroid')">Run App on Android Device</button>
-    <button class="command-button" onclick="addCommand('listPlatforms')">List Added Platforms</button>
-    <button class="command-button" onclick="addCommand('listPlugins')">List Added Plugins</button>
-    <button class="command-button" onclick="clearCommands()">Clear Commands</button>
-
-    <button class="command-button" onclick="copyToClipboard()">Copy Commands</button>
+    <div id="buttons-container">
+        <button class="command-button" onclick="addCommand('cordovaCreate')">Create Cordova Project</button>
+        <button class="command-button" onclick="addCommand('navigateProject')">Navigate to Project Directory</button>
+        <button class="command-button" onclick="addCommand('addPlatform')">Add Platform</button>
+        <button class="command-button" onclick="addCommand('removePlatform')">Remove Platform</button>
+        <button class="command-button" onclick="addCommand('cleanProject')">Clean Project</button>
+        <button class="command-button" onclick="addCommand('buildAPK')">Build APK (Android)</button>
+        <button class="command-button" onclick="addCommand('buildBundle')">Build Bundle (Android)</button>
+        <button class="command-button" onclick="addCommand('runAndroid')">Run App on Android Device</button>
+        <button class="command-button" onclick="addCommand('listPlatforms')">List Added Platforms</button>
+        <button class="command-button" onclick="addCommand('listPlugins')">List Added Plugins</button>
+        <button class="command-button" onclick="addCommand('addPlugin')">Add Plugin</button>
+        <button class="command-button" onclick="clearCommands()">Clear Commands</button>
+        <button class="command-button" onclick="copyToClipboard()">Copy Commands</button>
+    </div>
 
     <script>
         var commands = [];
@@ -48,7 +124,11 @@
             },
             addPlatform: {
                 name: 'Add Platform (e.g., android)',
-                template: 'cordova platform add android'
+                template: platformName => `cordova platform add ${platformName}`
+            },
+            removePlatform: {
+                name: 'Remove Platform',
+                template: platformName => `cordova platform rm ${platformName}`
             },
             cleanProject: {
                 name: 'Clean Project',
@@ -73,18 +153,39 @@
             listPlugins: {
                 name: 'List Added Plugins',
                 template: 'cordova plugin ls'
+            },
+            addPlugin: {
+                name: 'Add Plugin',
+                template: pluginName => `cordova plugin add ${pluginName}`
             }
         };
 
         function addCommand(command) {
             var projectName = document.getElementById("projectName").value.trim();
             var exampleName = document.getElementById("exampleName").value.trim() || "example";
+            var pluginName = document.getElementById("pluginName").value;
+            var platformName = document.getElementById("platformName").value;
 
             var commandObj = commandInfo[command];
             if (commandObj) {
-                var newCommand = typeof commandObj.template === 'function' ?
-                    commandObj.template(projectName, exampleName) :
-                    commandObj.template;
+                var newCommand;
+                if (command === 'addPlugin') {
+                    if (!pluginName) {
+                        alert("Please select a plugin.");
+                        return;
+                    }
+                    newCommand = commandObj.template(pluginName);
+                } else if (command === 'addPlatform' || command === 'removePlatform') {
+                    if (!platformName) {
+                        alert("Please select a platform.");
+                        return;
+                    }
+                    newCommand = commandObj.template(platformName);
+                } else {
+                    newCommand = typeof commandObj.template === 'function' ?
+                        commandObj.template(projectName, exampleName) :
+                        commandObj.template;
+                }
 
                 commands.push(newCommand);
                 updateCommandsTextarea();
