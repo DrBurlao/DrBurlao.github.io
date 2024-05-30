@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurlaSoft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 300px; /* Añadido espacio a los lados para los elementos */
+        }
+        .navbar .button,
+        .navbar .select-wrapper,
+        .navbar .selected-game-icon,
+        .navbar .selected-game-name {
+            margin-right: 50px; /* Ajuste del espacio entre los elementos en la barra de navegación */
+        }
+        .navbar a {
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .container {
+            height: calc(100% - 56px); /* Subtract the height of the navbar */
+            padding-top: 56px; /* Compensate for the height of the navbar */
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* Estilos para el desplegable */
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .select-wrapper select {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px 40px 12px 20px; /* Ajuste del espacio para el icono */
+            font-size: 16px;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 250px; /* Ancho del desplegable */
+        }
+        .select-wrapper::after {
+            content: "\f078"; /* Icono de flecha hacia abajo */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 14px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+        /* Estilos para el icono seleccionado */
+        .selected-game-icon {
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        /* Estilos para el nombre del juego seleccionado */
+        .selected-game-name {
+            color: white;
+            font-size: 16px;
+            vertical-align: middle;
+        }
+    </style>
+    <script>
+        function loadPage(page) {
+            document.getElementById('content-frame').src = page;
+        }
+        function selectPage() {
+            var select = document.getElementById("page-select");
+            var selectedPage = select.options[select.selectedIndex].value;
+            loadPage(selectedPage);
+            updateSelectedGame(); // Llamar a la función para actualizar el juego seleccionado
+        }
+        function updateSelectedGame() {
+            var select = document.getElementById("page-select");
+            var selectedOption = select.options[select.selectedIndex];
+            var iconURL = selectedOption.getAttribute("data-icon-url");
+            var selectedGameIcon = document.getElementById("selected-game-icon");
+            var selectedGameName = document.getElementById("selected-game-name");
+            selectedGameIcon.style.backgroundImage = "url('" + iconURL + "')";
+            selectedGameName.textContent = selectedOption.textContent;
+        }
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <a class="button" href="http://drburlao.github.io" target="_blank"><i class="fas fa-home"></i> BurlaSoft</a>
+    <a class="button" onclick="loadPage('http://drburlao.github.io/PrivacyPolicy')"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+    <a class="button" onclick="loadPage('http://drburlao.github.io/DMCA.html')"><i class="fas fa-balance-scale"></i> DMCA</a>
+    <div class="select-wrapper">
+        <select id="page-select" onchange="selectPage()">
+            <option value="http://drburlao.github.io/BurlaPong/index.html" data-icon-url="http://drburlao.github.io/BurlaPong/icon.png">BurlaPong</option>
+            <option value="http://drburlao.github.io/DjBurlaoMax/index.html" data-icon-url="http://drburlao.github.io/DjBurlaoMax/icon.png">DjBurlaoMax</option>
+            <option value="http://drburlao.github.io/Minimal%20Tic%20Tac%20Toe/index.html" data-icon-url="http://drburlao.github.io/Minimal%20Tic%20Tac%20Toe/icon.png">Minimal Tic Tac Toe</option>
+        </select>
+    </div>
+    <span class="selected-game-icon" id="selected-game-icon"></span>
+    <span class="selected-game-name" id="selected-game-name"></span>
+</div>
+
+<div class="container">
+    <iframe id="content-frame" src="http://drburlao.github.io/BrowserGames.html" frameborder="0"></iframe>
+</div>
+
+</body>
+</html>
