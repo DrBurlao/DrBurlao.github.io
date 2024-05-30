@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú de Juegos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(to bottom, #e3f2fd, #f9f9f9);
+            max-width: 1000px;
+            margin: auto;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .game-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .game-button {
+            padding: 15px 35px;
+            font-size: 20px;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(to right, #2196F3, #4CAF50);
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .game-button i {
+            margin-right: 10px; 
+        }
+
+        .game-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona un Juego</h1>
+    
+    <div class="game-menu">
+        <a class="game-button" href="#"><i class="fas fa-gamepad"></i> Juego 1</a>
+        <a class="game-button" href="#"><i class="fas fa-gamepad"></i> Juego 2</a>
+        <a class="game-button" href="#"><i class="fas fa-gamepad"></i> Juego 3</a>
+        <a class="game-button" href="#"><i class="fas fa-gamepad"></i> Juego 4</a>
+        <a class="game-button" href="#"><i class="fas fa-gamepad"></i> Juego 5</a>
+        <a class="game-button" href="#"><i class="fas fa-gamepad"></i> Juego 6</a>
+    </div>
+</body>
+</html>
