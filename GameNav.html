@@ -22,13 +22,13 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            padding: 0 300px; /* Añadido espacio a los lados para los elementos */
+            padding: 0 20px; /* Añadido espacio a los lados para los elementos */
         }
         .navbar .button,
         .navbar .select-wrapper,
         .navbar .selected-game-icon,
         .navbar .selected-game-name {
-            margin-right: 50px; /* Ajuste del espacio entre los elementos en la barra de navegación */
+            margin-right: 10px; /* Ajuste del espacio entre los elementos en la barra de navegación */
         }
         .navbar a {
             display: block;
@@ -42,7 +42,7 @@
             background-color: #575757;
         }
         .container {
-            height: calc(100% - 56px); /* Subtract the height of the navbar */
+            min-height: calc(100% - 56px); /* Cambio a min-height */
             padding-top: 56px; /* Compensate for the height of the navbar */
         }
         iframe {
