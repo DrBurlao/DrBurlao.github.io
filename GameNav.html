@@ -42,12 +42,15 @@
             background-color: #575757;
         }
         .container {
-            min-height: calc(100% - 56px); /* Cambio a min-height */
-            padding-top: 56px; /* Compensate for the height of the navbar */
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 56px; /* Altura de la barra de navegación */
+            left: 0;
         }
         iframe {
             width: 100%;
-            min-height: 100%; /* Ajuste para que el iframe tenga una altura mínima del 100% del contenedor */
+            height: 100%;
             border: none;
         }
         /* Estilos para el desplegable */
