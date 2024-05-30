@@ -1,145 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BurlaSoft</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>BurlaSoft - Browser Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            padding: 0 20px; /* Añadido espacio a los lados para los elementos */
-        }
-        .navbar .button,
-        .navbar .select-wrapper,
-        .navbar .selected-game-icon,
-        .navbar .selected-game-name {
-            margin-right: 10px; /* Ajuste del espacio entre los elementos en la barra de navegación */
-        }
-        .navbar a {
-            display: block;
-            color: white;
+        body {
+            font-family: 'Roboto', sans-serif;
             text-align: center;
+            padding: 50px;
+            background: linear-gradient(to bottom, #e3f2fd, #f9f9f9);
+            max-width: 1000px;
+            margin: auto;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .game-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .game-button {
+            padding: 15px 35px;
+            font-size: 20px;
             text-decoration: none;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-        .navbar a:hover {
-            background-color: #575757;
-        }
-        .container {
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 56px; /* Altura de la barra de navegación */
-            left: 0;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        /* Estilos para el desplegable */
-        .select-wrapper {
-            position: relative;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .select-wrapper select {
-            background-color: #333;
             color: white;
-            border: none;
-            padding: 12px 40px 12px 20px; /* Ajuste del espacio para el icono */
-            font-size: 16px;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            width: 250px; /* Ancho del desplegable */
+            background: linear-gradient(to right, #2196F3, #4CAF50);
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
         }
-        .select-wrapper::after {
-            content: "\f078"; /* Icono de flecha hacia abajo */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            font-size: 14px;
-            color: white;
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
+
+        .game-button i {
+            margin-right: 10px; 
         }
-        /* Estilos para el icono seleccionado */
-        .selected-game-icon {
-            width: 30px;
-            height: 30px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            vertical-align: middle;
-            display: inline-block;
-        }
-        /* Estilos para el nombre del juego seleccionado */
-        .selected-game-name {
-            color: white;
-            font-size: 16px;
-            vertical-align: middle;
+
+        .game-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
         }
     </style>
-    <script>
-        function loadPage(page) {
-            document.getElementById('content-frame').src = page;
-        }
-        function selectPage() {
-            var select = document.getElementById("page-select");
-            var selectedPage = select.options[select.selectedIndex].value;
-            loadPage(selectedPage);
-            updateSelectedGame(); // Llamar a la función para actualizar el juego seleccionado
-        }
-        function updateSelectedGame() {
-            var select = document.getElementById("page-select");
-            var selectedOption = select.options[select.selectedIndex];
-            var iconURL = selectedOption.getAttribute("data-icon-url");
-            var selectedGameIcon = document.getElementById("selected-game-icon");
-            var selectedGameName = document.getElementById("selected-game-name");
-            selectedGameIcon.style.backgroundImage = "url('" + iconURL + "')";
-            selectedGameName.textContent = selectedOption.textContent;
-        }
-    </script>
 </head>
 <body>
-
-<div class="navbar">
-    <a class="button" href="http://drburlao.github.io" target="_blank"><i class="fas fa-home"></i> BurlaSoft</a>
-    <a class="button" onclick="loadPage('PrivacyPolicy.html')"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
-    <a class="button" onclick="loadPage('DMCA.html')"><i class="fas fa-balance-scale"></i> DMCA</a>
-    <div class="select-wrapper">
-        <select id="page-select" onchange="selectPage()">
-            <option value="BurlaPong/index.html" data-icon-url="BurlaPong/icon.png">BurlaPong</option>
-            <option value="DjBurlaoMax/index.html" data-icon-url="DjBurlaoMax/icon.png">DjBurlaoMax</option>
-            <option value="Minimal%20Tic%20Tac%20Toe/index.html" data-icon-url="Minimal%20Tic%20Tac%20Toe/icon.png">Minimal Tic Tac Toe</option>
-        </select>
+    <h1>BurlaSoft Browser Games</h1>
+    
+    <div class="game-menu">
+        <a class="game-button" href="http://drburlao.github.io/BurlaPong/index.html" target="gameFrame"><i class="fas fa-gamepad"></i> BurlaPong</a>
+        <a class="game-button" href="http://drburlao.github.io/DjBurlaoMax/index.html" target="gameFrame"><i class="fas fa-gamepad"></i> DjBurlaoMax</a>
+        <a class="game-button" href="http://drburlao.github.io/Minimal%20Tic%20Tac%20Toe/index.html" target="gameFrame"><i class="fas fa-gamepad"></i> Minimal Tic Tac Toe</a>
     </div>
-    <span class="selected-game-icon" id="selected-game-icon"></span>
-    <span class="selected-game-name" id="selected-game-name"></span>
-</div>
 
-<div class="container">
-    <iframe id="content-frame" src="BrowserGames.html" frameborder="0"></iframe>
-</div>
+    <iframe id="gameFrame" name="gameFrame" width="800" height="600" frameborder="0"></iframe>
 
+    <script>
+        window.addEventListener("message", function(event) {
+            if (event.origin !== "http://drburlao.github.io") // Reemplaza con el dominio del contenido del iframe
+                return;
+            
+            // Ejemplo de manejo de mensajes recibidos desde el iframe
+            console.log("Mensaje recibido desde el iframe:", event.data);
+        }, false);
+    </script>
 </body>
 </html>
