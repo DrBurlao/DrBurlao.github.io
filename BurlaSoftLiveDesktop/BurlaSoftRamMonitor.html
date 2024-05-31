@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BurlaSoft - RamMonitor</title>
+<title>BurlaSoftLiveMonitor</title>
 <style>
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
         color: #333;
+        background-color: #fff; /* Establecer color de fondo por defecto */
     }
     h1 {
         text-align: center;
@@ -16,7 +17,8 @@
         color: #4CAF50;
     }
     .chart-container {
-        width: 80%;
+        width: 100%;
+        max-width: 600px;
         margin: auto;
     }
     .chart {
@@ -28,6 +30,7 @@
         background-color: #fff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
+        position: relative;
     }
     .bar {
         width: 0;
@@ -38,8 +41,10 @@
     .bar-text {
         position: absolute;
         top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        left: 5px;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 14px;
     }
     .settings {
         text-align: center;
@@ -70,21 +75,21 @@
 </style>
 </head>
 <body>
-<h1>BurlaSoft LiveMonitor</h1>
-<button id="settingsButton" onclick="toggleSettings()">Configuración</button>
-<div class="settings">
-    <label for="barColor" class="setting-label">Color de la barra:</label>
-    <input type="color" id="barColor" value="#4CAF50">
-    <label for="backgroundColor" class="setting-label">Color de fondo:</label>
-    <input type="color" id="backgroundColor" value="#fff">
-    <label for="textColor" class="setting-label">Color del texto:</label>
-    <input type="color" id="textColor" value="#333">
-    <button onclick="saveSettings()">Guardar Configuración</button>
-</div>
+<h1>BurlaSoftLiveMonitor</h1>
 <div class="chart-container">
     <div class="chart" id="memoryChart">
         <div class="bar" id="memoryBar"></div>
         <div class="bar-text" id="memoryText"></div>
+    </div>
+    <button id="settingsButton" onclick="toggleSettings()">Configuración</button>
+    <div class="settings">
+        <label for="barColor" class="setting-label">Color de la barra:</label>
+        <input type="color" id="barColor" value="#4CAF50">
+        <label for="backgroundColor" class="setting-label">Color de fondo:</label>
+        <input type="color" id="backgroundColor" value="#fff">
+        <label for="textColor" class="setting-label">Color del texto:</label>
+        <input type="color" id="textColor" value="#333">
+        <button onclick="saveSettings()">Guardar Configuración</button>
     </div>
 </div>
 
@@ -118,6 +123,9 @@
         localStorage.setItem('barColor', barColor);
         localStorage.setItem('backgroundColor', backgroundColor);
         localStorage.setItem('textColor', textColor);
+
+        // Aplicar el color de fondo a todo el cuerpo del documento
+        document.body.style.backgroundColor = backgroundColor;
 
         // Actualizar estilos con la nueva configuración
         updateMemoryUsage();
