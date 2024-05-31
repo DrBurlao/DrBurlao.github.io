@@ -155,6 +155,7 @@
             <div id="percentage">0%</div>
         </div>
         <div class="final-message" id="final-message">Welcome to BurlaSoft LiveDesktop!</div>
+        <audio id="audio" src="https://drburlao.github.io/BurlaSoftLiveDesktop/Load.mp3"></audio>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -176,6 +177,11 @@
                 document.getElementById('loading-bar-container').style.display = 'none';
                 document.getElementById('final-message').style.display = 'block';
             }, 2500);  // 2.5 seconds to hide initial messages and show final message
+
+            setTimeout(function() {
+                const audio = document.getElementById("audio");
+                audio.play();
+            }, 3000);  // 3 seconds
 
             setTimeout(function() {
                 window.location.href = "https://drburlao.github.io/BurlaSoftLiveDesktop/index.html";
