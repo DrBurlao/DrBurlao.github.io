@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetBtn = document.getElementById("reset-btn");
 
     let activeIcon = null;
+    let activeWidget = null;
+    let copiedURL = null;
 
     // Función para mostrar el menú contextual
     function showContextMenu(event) {
@@ -19,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         contextMenu.style.left = event.clientX + "px";
         contextMenu.style.display = "block";
         activeIcon = event.target.closest(".icon");
+        activeWidget = event.target.closest(".widget");
     }
 
     // Función para ocultar el menú contextual
@@ -77,6 +80,13 @@ document.addEventListener("DOMContentLoaded", function() {
         taskbarIcon.addEventListener("click", function() {
             openFile(url, name);
         });
+
+        taskbarIcon.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            if (confirm(`¿Eliminar ${name} de la barra de tareas?`)) {
+                taskbarIcons.removeChild(taskbarIcon);
+            }
+        });
     }
 
     // Función para abrir un archivo en una ventana
@@ -87,13 +97,13 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="window-header">
                 <span class="window-title">${name}</span>
                 <div class="window-controls">
-                    <button class="minimize">-</button>
-                    <button class="maximize">+</button>
-                    <button class="close">x</button>
+                    <button class="minimize">_</button>
+                    <button class="maximize">[ ]</button>
+                    <button class="close">X</button>
                 </div>
             </div>
             <div class="window-content">
-                <iframe src="${url}" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                <iframe src="${url}" style="width: 100%; height: 100%;"></iframe>
             </div>
         `;
         desktop.appendChild(windowElement);
@@ -145,6 +155,42 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Función para agregar un widget flotante
+    function addWidget() {
+        const widget = document.createElement("div");
+        widget.classList.add("widget");
+        widget.innerHTML = `
+            <div class="widget-content">
+                <p>Este es un widget flotante. Puedes moverlo y redimensionarlo.</p>
+            </div>
+        `;
+        desktop.appendChild(widget);
+
+        // Drag functionality for widgets
+        widget.addEventListener("mousedown", function(event) {
+            const rect = widget.getBoundingClientRect();
+            const offsetX = event.clientX - rect.left;
+            const offsetY = event.clientY - rect.top;
+
+            function moveWidget(event) {
+                widget.style.top = `${event.clientY - offsetY}px`;
+                widget.style.left = `${event.clientX - offsetX}px`;
+            }
+
+            function stopMoveWidget() {
+                document.removeEventListener("mousemove", moveWidget);
+                document.removeEventListener("mouseup", stopMoveWidget);
+            }
+
+            document.addEventListener("mousemove", moveWidget);
+            document.addEventListener("mouseup", stopMoveWidget);
+        });
+
+        // Allow resizing the widget
+        widget.style.resize = "both";
+        widget.style.overflow = "auto";
+    }
+
     // Función para guardar los iconos en el localStorage
     function saveIcons() {
         const icons = Array.from(document.querySelectorAll(".icon")).map(icon => ({
@@ -162,14 +208,18 @@ document.addEventListener("DOMContentLoaded", function() {
         icons.forEach(icon => addIcon(icon.url, icon.name, { top: icon.top, left: icon.left }));
     }
 
-    // Función para actualizar el reloj
-    function updateClock() {
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, "0");
-        const minutes = now.getMinutes().toString().padStart(2, "0");
-        const seconds = now.getSeconds().toString().padStart(2, "0");
-        clock.textContent = `${hours}:${minutes}:${seconds}`;
-    }
+function updateClock() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+    const day = now.getDate().toString().padStart(2, "0");
+    const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Se suma 1 porque los meses empiezan desde 0
+    const year = now.getFullYear();
+
+    clock.textContent = `${hours}:${minutes}:${seconds} - ${day}/${month}/${year}`;
+}
+
 
     // Evento para seleccionar archivos desde el sistema
     fileSelector.addEventListener("change", function(event) {
@@ -225,6 +275,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // Evento para editar la URL de un icono
+    document.getElementById("edit-url").addEventListener("click", function() {
+        if (activeIcon) {
+            const newUrl = prompt("Ingrese la nueva URL:", activeIcon.dataset.executable);
+            if (newUrl) {
+                activeIcon.dataset.executable = newUrl;
+                activeIcon.querySelector("img").src = newUrl;
+                saveIcons();
+            }
+        }
+    });
+
     // Evento para renombrar un icono
     document.getElementById("rename").addEventListener("click", function() {
         if (activeIcon) {
@@ -252,6 +314,38 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // Evento para agregar un widget
+    document.getElementById("add-widget").addEventListener("click", function() {
+        addWidget();
+    });
+
+    // Evento para cerrar un widget
+    document.getElementById("close-widget").addEventListener("click", function() {
+        if (activeWidget) {
+            desktop.removeChild(activeWidget);
+        }
+    });
+
+    // Evento para copiar la URL de un icono
+    document.getElementById("copy-url").addEventListener("click", function() {
+        if (activeIcon) {
+            copiedURL = activeIcon.dataset.executable;
+            alert("URL copiada: " + copiedURL);
+        }
+    });
+
+    // Evento para pegar la URL como un nuevo icono
+    document.getElementById("paste-url").addEventListener("click", function() {
+        if (copiedURL) {
+            const name = prompt("Ingrese el nombre del nuevo acceso directo:");
+            if (name) {
+                addIcon(copiedURL, name);
+            }
+        } else {
+            alert("No hay URL copiada.");
+        }
+    });
+
     // Cargar el fondo del escritorio del localStorage
     const savedBackground = localStorage.getItem("background");
     if (savedBackground) {
@@ -265,4 +359,3 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(updateClock, 1000);
     updateClock();
 });
-
