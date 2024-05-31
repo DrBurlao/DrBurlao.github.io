@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurlaSoft - LiveDesktop v2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="desktop">
+        <div id="context-menu">
+            <ul>
+                <li id="add-url">Agregar URL</li>
+                <li id="edit-url">Editar URL</li>
+                <li id="rename">Renombrar</li>
+                <li id="delete">Eliminar</li>
+                <li id="properties">Propiedades</li>
+                <li id="add-widget">Agregar Widget</li>
+                <li id="close-widget">Cerrar Widget</li>
+                <li id="copy-url">Copiar URL</li>
+                <li id="paste-url">Pegar URL</li>
+                <li id="create-folder">Crear Carpeta</li>
+            </ul>
+        </div>
+        <div id="taskbar">
+            <div id="taskbar-icons"></div>
+            <div id="clock"></div>
+        </div>
+    </div>
+    <input type="file" id="file-selector" style="display: none;">
+    <input type="file" id="background-selector" style="display: none;">
+    <button id="change-background-btn">Cambiar Fondo</button>
+    <button id="change-color-btn">Cambiar Color</button>
+    <button id="reset-btn">Reiniciar</button>
+    <button id="import-data-btn">Importar Datos</button>
+    <button id="export-data-btn">Exportar Datos</button>
+    <input type="file" id="import-file-selector" style="display: none;">
+    <script src="scripts.js"></script>
+</body>
+</html>
