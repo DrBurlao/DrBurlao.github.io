@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1e272e;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .input-group button {
+            width: 40px;
+            padding: 10px;
+            border: none;
+            background-color: #2ecc71;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group button:hover {
+            background-color: #27ae60;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .logged-in-menu {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .logged-in-menu button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .logged-in-menu button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-title">Login</div>
+        <form id="login-form">
+            <div class="input-group">
+                <input type="text" id="username-input" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password-input" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div class="error-message" id="error-message"></div>
+        </form>
+        <div class="logged-in-menu" id="logged-in-menu">
+            <button id="start-btn">Start</button>
+            <button id="config-btn">Configure Account</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginForm = document.getElementById("login-form");
+            const loggedInMenu = document.getElementById("logged-in-menu");
+
+            function showLoginForm() {
+                document.querySelector(".login-container").style.display = "block";
+                loggedInMenu.style.display = "none";
+            }
+
+            function showLoggedInMenu() {
+                document.querySelector(".login-container").style.display = "none";
+                loggedInMenu.style.display = "block";
+            }
+
+            function createAccount(username, password) {
+                localStorage.setItem("account", JSON.stringify({ username: username, password: password }));
+            }
+
+            loginForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const username = document.getElementById("username-input").value;
+                const password = document.getElementById("password-input").value;
+                const storedAccount = JSON.parse(localStorage.getItem("account"));
+                if (!storedAccount) {
+                    createAccount(username, password);
+                    alert("Account created successfully!");
+                    showLoggedInMenu();
+                } else if (storedAccount.username === username && storedAccount.password === password) {
+                    alert("Login successful!");
+                    showLoggedInMenu();
+                } else {
+                    const errorMessage = document.getElementById("error-message");
+                    errorMessage.style.display = "block";
+                    errorMessage.textContent = "Invalid username or password.";
+                    const recoveryCode = prompt("Enter recovery code:");
+                    const storedRecoveryCode = localStorage.getItem("recoveryCode");
+                    if (recoveryCode === storedRecoveryCode) {
+                        const newPassword = prompt("Enter new password:");
+                        if (newPassword !== null) {
+                            storedAccount.password = newPassword;
+                            localStorage.setItem("account", JSON.stringify(storedAccount));
+                            alert("Password updated successfully!");
+                        }
+                    } else {
+                        alert("Invalid recovery code.");
+                    }
+                }
+            });
+
+            // Start button functionality
+            document.getElementById("start-btn").addEventListener("click", function() {
+                // Replace 'URL' with the desired URL
+                window.location.href = "URL";
+            });
+
+            // Configure Account button functionality
+            document.getElementById("config-btn").addEventListener("click", function() {
+                const newCode = prompt("Enter recovery code:");
+                const storedCode = localStorage.getItem("recoveryCode");
+                if (newCode === storedCode) {
+                    const newPassword = prompt("Enter new password:");
+                    if (newPassword !== null) {
+                        const storedAccount = JSON.parse(localStorage.getItem("account"));
+                        storedAccount.password = newPassword;
+                        localStorage.setItem("account", JSON.stringify(storedAccount));
+                        alert("Password updated successfully!");
+                    }
+                } else {
+                    alert("Invalid recovery code.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
