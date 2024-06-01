@@ -38,15 +38,15 @@
         <h1>¡Bienvenido a la Tienda de BurlaSoft!</h1>
         <p>¡Compra nuestras increíbles funciones y disfruta de tu escritorio virtual al máximo!</p>
         <!-- Productos -->
-        <div class="product" onclick="mostrarIconoProducto('icono1.png')">
+        <div class="product" onclick="agregarIconoEscritorio('icono1.png', 'https://mi-escritorio-virtual.com/app1')">
             <img src="icono1.png" alt="Producto 1">
             <p>Producto 1</p>
         </div>
-        <div class="product" onclick="mostrarIconoProducto('icono2.png')">
+        <div class="product" onclick="agregarIconoEscritorio('icono2.png', 'https://mi-escritorio-virtual.com/app2')">
             <img src="icono2.png" alt="Producto 2">
             <p>Producto 2</p>
         </div>
-        <div class="product" onclick="mostrarIconoProducto('icono3.png')">
+        <div class="product" onclick="agregarIconoEscritorio('icono3.png', 'https://mi-escritorio-virtual.com/app3')">
             <img src="icono3.png" alt="Producto 3">
             <p>Producto 3</p>
         </div>
@@ -54,9 +54,14 @@
     </div>
 
     <script>
-        // Función para abrir la ventana modal y mostrar el icono del producto
-        function mostrarIconoProducto(iconSrc) {
-            window.parent.mostrarIconoProducto(iconSrc); // Llama a la función en el padre (index.html)
+        // Función para agregar un icono al escritorio con la URL del producto
+        function agregarIconoEscritorio(iconSrc, appURL) {
+            const desktop = window.parent.document.getElementById('desktop');
+            const newIcon = document.createElement('div');
+            newIcon.classList.add('icon');
+            newIcon.style.backgroundImage = `url(${iconSrc})`;
+            newIcon.setAttribute('onclick', `window.parent.abrirAplicacion('${appURL}')`);
+            desktop.appendChild(newIcon);
         }
     </script>
 </body>
