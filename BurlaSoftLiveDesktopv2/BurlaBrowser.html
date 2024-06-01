@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurlaBrowser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #toolbar {
+            width: 100%;
+            height: 50px;
+            background-color: #333;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        #address-bar {
+            flex: 1;
+            height: 30px;
+            padding: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        #buttons {
+            display: flex;
+            gap: 10px;
+        }
+        #buttons button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        #buttons button:hover {
+            color: #ccc;
+        }
+        #tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        #tabs button {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #tabs button:hover {
+            color: #ccc;
+        }
+        #browser-frame {
+            width: 100%;
+            height: calc(100% - 100px);
+            border: none;
+        }
+        #progress-bar-container {
+            width: 100%;
+            height: 5px;
+            background-color: #ddd;
+            display: none;
+        }
+        #progress-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            width: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="toolbar">
+        <input type="text" id="address-bar" placeholder="Enter URL">
+        <div id="buttons">
+            <button onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+            <button onclick="goForward()"><i class="fas fa-arrow-right"></i></button>
+            <button onclick="reload()"><i class="fas fa-sync"></i></button>
+            <button onclick="openInNewTab()"><i class="fas fa-external-link-alt"></i></button>
+            <button onclick="addTab()"><i class="fas fa-plus"></i></button>
+            <button onclick="removeTab()"><i class="fas fa-minus"></i></button>
+        </div>
+    </div>
+    <div id="tabs">
+    </div>
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+    <iframe id="browser-frame"></iframe>
+
+    <script>
+        const addressBar = document.getElementById('address-bar');
+        const browserFrame = document.getElementById('browser-frame');
+        const progressBarContainer = document.getElementById('progress-bar-container');
+        const progressBar = document.getElementById('progress-bar');
+        let currentTab = 0;
+        let tabs = [];
+
+        function goBack() {
+            if (browserFrame.contentWindow.history.length > 0) {
+                browserFrame.contentWindow.history.back();
+            }
+        }
+
+        function goForward() {
+            if (browserFrame.contentWindow.history.length > 1) {
+                browserFrame.contentWindow.history.forward();
+            }
+        }
+
+        function reload() {
+            progressBarContainer.style.display = 'block';
+            browserFrame.contentWindow.location.reload();
+        }
+
+        function openInNewTab() {
+            const url = addressBar.value.trim();
+            if (url !== '') {
+                window.open('https://' + url, '_blank');
+            }
+        }
+
+        function addTab() {
+            const newTabIndex = tabs.length;
+            const newTabButton = document.createElement('button');
+            newTabButton.innerText = `Tab ${newTabIndex + 1}`;
+            newTabButton.addEventListener('click', () => changeTab(newTabIndex));
+            tabs.push({ url: '' });
+            document.getElementById('tabs').appendChild(newTabButton);
+            changeTab(newTabIndex);
+        }
+
+        function removeTab() {
+            if (tabs.length <= 1) return;
+            const currentTabButton = document.getElementById(`tab-${currentTab}`);
+            currentTabButton.remove();
+            tabs.splice(currentTab, 1);
+            changeTab(Math.max(0, currentTab - 1));
+        }
+
+        function changeTab(index) {
+            currentTab = index;
+            loadTab(index);
+        }
+
+        function loadTab(index) {
+            const tab = tabs[index];
+            if (tab.url !== '') {
+                progressBarContainer.style.display = 'block';
+                browserFrame.src = tab.url;
+            }
+        }
+
+        function saveTabs() {
+            localStorage.setItem('tabs', JSON.stringify(tabs));
+        }
+
+        function restoreTabs() {
+            const savedTabs = localStorage.getItem('tabs');
+            if (savedTabs) {
+                tabs = JSON.parse(savedTabs);
+                tabs.forEach((tab, index) => {
+                    if (tab.url !== '') {
+                        loadTab(index);
+                    }
+                });
+            }
+        }
+
+        addressBar.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const url = addressBar.value.trim();
+                if (url !== '') {
+                    tabs[currentTab].url = 'https://' + url;
+                    saveTabs();
+                    loadTab(currentTab);
+                }
+            }
+        });
+
+        browserFrame.addEventListener('load', function() {
+            addressBar.value = browserFrame.contentWindow.location.href;
+            progressBarContainer.style.display = 'none';
+            tabs[currentTab].url = browserFrame.contentWindow.location.href;
+            saveTabs();
+        });
+
+        browserFrame.addEventListener('loadstart', function() {
+            progressBarContainer.style.display = 'block';
+        });
+
+        browserFrame.addEventListener('progress', function(event) {
+            if (event.lengthComputable) {
+                const progress = (event.loaded / event.total) * 100;
+                progressBar.style.width = progress + '%';
+            }
+        });
+
+        restoreTabs();
+        loadTab(currentTab);
+    </script>
+</body>
+</html>
