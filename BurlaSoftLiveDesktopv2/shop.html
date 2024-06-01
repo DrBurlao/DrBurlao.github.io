@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda - BurlaSoft</title>
+    <style>
+        /* Estilos para la tienda */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .shop-content {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="shop-content">
+        <!-- Contenido de la tienda -->
+        <h1>¡Bienvenido a la Tienda de BurlaSoft!</h1>
+        <p>¡Compra nuestras increíbles funciones y disfruta de tu escritorio virtual al máximo!</p>
+        <!-- Productos -->
+        <div class="product" onclick="mostrarIconoProducto('icono1.png')">
+            <img src="icono1.png" alt="Producto 1">
+            <p>Producto 1</p>
+        </div>
+        <div class="product" onclick="mostrarIconoProducto('icono2.png')">
+            <img src="icono2.png" alt="Producto 2">
+            <p>Producto 2</p>
+        </div>
+        <div class="product" onclick="mostrarIconoProducto('icono3.png')">
+            <img src="icono3.png" alt="Producto 3">
+            <p>Producto 3</p>
+        </div>
+        <!-- Fin de productos -->
+    </div>
+
+    <script>
+        // Función para abrir la ventana modal y mostrar el icono del producto
+        function mostrarIconoProducto(iconSrc) {
+            window.parent.mostrarIconoProducto(iconSrc); // Llama a la función en el padre (index.html)
+        }
+    </script>
+</body>
+</html>
