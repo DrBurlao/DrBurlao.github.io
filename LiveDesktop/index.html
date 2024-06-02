@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frame Adaptativo con DSP de Audio</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #222;
+      color: #eee;
+    }
+
+    .frame-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 aspect ratio */
+      background-color: #333; /* Color de fondo del contenedor */
+    }
+
+    .frame-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none; /* Remove iframe border */
+      background-color: #444; /* Color de fondo del iframe */
+      color: #eee; /* Color de texto del iframe */
+    }
+
+    .audio-dsp-container {
+      position: fixed;
+      top: 0;
+      right: -300px; /* Oculto por defecto */
+      width: 300px;
+      height: 100%;
+      background-color: #222; /* Color de fondo del contenedor DSP */
+      border-left: 2px solid #444; /* Borde del contenedor DSP */
+      transition: right 0.3s ease; /* Animación suave */
+    }
+
+    .audio-dsp-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none; /* Remove iframe border */
+      background-color: #222; /* Color de fondo del iframe DSP */
+    }
+
+    .audio-dsp-tab {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 100px;
+      background-color: #808080; /* Color de fondo de la pestaña */
+      color: #fff; /* Color del texto de la pestaña */
+      text-align: center;
+      line-height: 100px;
+      cursor: pointer;
+      border-radius: 5px 0 0 5px; /* Bordes redondeados */
+    }
+
+    .aspect-ratio-container {
+      position: fixed;
+      top: 0;
+      right: -300px; /* Oculto por defecto */
+      width: 300px;
+      height: 100%;
+      background-color: #222; /* Color de fondo del contenedor */
+      border-left: 2px solid #444; /* Borde del contenedor */
+      transition: right 0.3s ease; /* Animación suave */
+    }
+
+    .aspect-ratio-tab {
+      position: fixed;
+      top: 10px;
+      right: 0;
+      width: 40px;
+      height: 100px;
+      background-color: #808080; /* Color de fondo de la pestaña */
+      color: #fff; /* Color del texto de la pestaña */
+      text-align: center;
+      line-height: 100px;
+      cursor: pointer;
+      border-radius: 5px 0 0 5px; /* Bordes redondeados */
+    }
+
+    .dropdown-content {
+      display: block;
+      padding: 8px 16px;
+      text-decoration: none;
+      color: #eee; /* Color del texto del menú */
+      cursor: pointer;
+    }
+
+    .dropdown-content:hover {
+      background-color: #666; /* Color de fondo al pasar el ratón */
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-container">
+    <iframe id="contentFrame" src="Boot.html" frameborder="0"></iframe>
+  </div>
+
+  <div class="audio-dsp-container" id="audioDspContainer">
+    <iframe id="audioDspFrame" src="audio_dsp.html" frameborder="0"></iframe>
+  </div>
+  <div class="audio-dsp-tab" onclick="toggleAudioDsp()">DSP</div>
+
+  <div class="aspect-ratio-container" id="aspectRatioContainer">
+    <div class="dropdown-content" onclick="changeResolution(56.25)">16:9</div>
+    <div class="dropdown-content" onclick="changeResolution(75)">4:3</div>
+    <div class="dropdown-content">
+      Change Colors:
+      <input type="color" id="backgroundColorPicker" onchange="changeBackgroundColor(event)" value="#333"> Wallpaper
+      <input type="color" id="textColorPicker" onchange="changeTextColor(event)" value="#eee"> Texto
+    </div>
+    <div class="dropdown-content" onclick="toggleCustom()">Custom</div>
+  </div>
+  <div class="aspect-ratio-tab" onclick="toggleAspectRatio()">Ratio</div>
+
+  <script>
+    // Recuperar preferencias guardadas
+    window.onload = function() {
+      var aspectRatio = localStorage.getItem('aspectRatio');
+      var backgroundColor = localStorage.getItem('backgroundColor');
+      var textColor = localStorage.getItem('textColor');
+      var isCustomMode = localStorage.getItem('isCustomMode');
+
+      if (aspectRatio) {
+        document.querySelector('.frame-container').style.paddingTop = aspectRatio + '%';
+      }
+      if (backgroundColor) {
+        document.querySelector('.frame-container').style.backgroundColor = backgroundColor;
+        document.getElementById('backgroundColorPicker').value = backgroundColor;
+      }
+      if (textColor) {
+        document.getElementById('contentFrame').style.color = textColor;
+        document.getElementById('textColorPicker').value = textColor;
+      }
+      if (isCustomMode === 'true') {
+        toggleCustom(); // Cambiar al modo personalizado si estaba activado
+      }
+    };
+
+    function toggleAudioDsp() {
+      var audioDspContainer = document.getElementById('audioDspContainer');
+      var currentRight = audioDspContainer.style.right;
+      audioDspContainer.style.right = (currentRight === '0px') ? '-300px' : '0px';
+    }
+
+    function toggleAspectRatio() {
+      var aspectRatioContainer = document.getElementById('aspectRatioContainer');
+      var currentRight = aspectRatioContainer.style.right;
+      aspectRatioContainer.style.right = (currentRight === '0px') ? '-300px' : '0px';
+    }
+
+    function changeResolution(aspectRatio) {
+      var frameContainer = document.querySelector('.frame-container');
+      frameContainer.style.paddingTop = aspectRatio + '%';
+      localStorage.setItem('aspectRatio', aspectRatio); // Guardar preferencia
+      localStorage.setItem('isCustomMode', 'false'); // Cambiar a modo adaptativo
+      toggleAspectRatio(); // Cerrar el menú después de seleccionar
+    }
+
+    function changeBackgroundColor(event) {
+      var color = event.target.value;
+      var frameContainer = document.querySelector('.frame-container');
+      frameContainer.style.backgroundColor = color;
+      localStorage.setItem('backgroundColor', color); // Guardar preferencia
+      localStorage.setItem('isCustomMode', 'false'); // Cambiar a modo adaptativo
+    }
+
+    function changeTextColor(event) {
+      var color = event.target.value;
+      var iframe = document.getElementById('contentFrame');
+      iframe.style.color = color;
+      localStorage.setItem('textColor', color); // Guardar preferencia
+      localStorage.setItem('isCustomMode', 'false'); // Cambiar a modo adaptativo
+    }
+
+    function toggleCustom() {
+      var frameContainer = document.querySelector('.frame-container');
+      var currentAspectRatio = parseFloat(frameContainer.style.paddingTop);
+      if (currentAspectRatio !== 0) {
+        frameContainer.style.paddingTop = 0; // Desactivar modo adaptativo
+        localStorage.setItem('aspectRatio', 0);
+        localStorage.setItem('isCustomMode', 'true'); // Activar modo personalizado
+      } else {
+        // Restaurar valores anteriores si estaban guardados
+        var aspectRatio = localStorage.getItem('aspectRatio');
+        var backgroundColor = localStorage.getItem('backgroundColor');
+        var textColor = localStorage.getItem('textColor');
+        if (aspectRatio) {
+          frameContainer.style.paddingTop = aspectRatio + '%';
+        }
+        if (backgroundColor) {
+          frameContainer.style.backgroundColor = backgroundColor;
+        }
+        if (textColor) {
+          document.getElementById('contentFrame').style.color = textColor;
+        }
+        localStorage.setItem('isCustomMode', 'false'); // Desactivar modo personalizado
+      }
+      toggleAspectRatio(); // Cerrar el menú después de seleccionar
+    }
+  </script>
+</body>
+</html>
