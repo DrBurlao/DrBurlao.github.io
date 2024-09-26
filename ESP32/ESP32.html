@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MBMCQ95B');</script>
+    <!-- End Google Tag Manager -->
+    <title>Proyectos de Electrónica - BurlaSoft</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #000000, #333333);
+            font-family: 'Verdana', sans-serif;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #555555;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        nav a {
+            color: #00FF00;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            transition: color 0.3s, background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #333333;
+            color: #FF00FF;
+        }
+        header {
+            background-color: #444444;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #FFCC00;
+            text-shadow: 2px 2px #000000;
+            font-size: 36px;
+        }
+        .content {
+            padding: 30px;
+            margin-top: 70px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 5px 5px 15px #000000;
+        }
+        .download-button {
+            display: inline-block;
+            padding: 15px;
+            background-color: #0000FF;
+            color: #FFFFFF;
+            border: 2px solid #FFCC00;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 5px;
+            box-shadow: 3px 3px 10px #000000;
+        }
+        .download-button:hover {
+            background-color: #FFCC00;
+            border-color: #0000FF;
+            color: #000000;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 10px #000000;
+        }
+        .back-to-top:hover {
+            background-color: #FFFFFF;
+            color: #FF0000;
+        }
+        footer {
+            background-color: #444444;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #FF0000;
+        }
+        .social-links a {
+            color: #FFCC00;
+            text-decoration: none;
+            padding: 10px;
+        }
+        @media (max-width: 600px) {
+            .content {
+                padding: 15px;
+                margin-top: 90px;
+            }
+            .download-button {
+                font-size: 14px;
+            }
+            .back-to-top {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+        }
+        /* Estilo para el frame de imagen */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 200; /* Más alto que el resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+        }
+        .modal-content {
+            position: relative;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #000000;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #FF0000; /* Color de la X */
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MBMCQ95B"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <nav>
+        <a href="#esp32-projects">Proyectos ESP32</a> |
+        <a href="#circuit-designs">Diseños de Circuitos</a> |
+        <a href="#resources">Recursos</a> |
+        <a href="#contact">Contacto</a> |
+        <a href="#faqs">FAQs</a>
+    </nav>
+    
+    <header>
+        <h1>Bienvenido a BurlaSoft</h1>
+        <p>Proyectos de Electrónica y Desarrollo con ESP32</p>
+    </header>
+    
+    <div class="content" id="esp32-projects"> 
+        <h2>Proyectos ESP32</h2>
+        <p>Aquí puedes encontrar varios proyectos realizados con ESP32:</p>
+        <ul>
+            <li><a class="download-button" href="https://github.com/DrBurlao/ESP32/tree/Computercraft/3x3LedMatrix">Matriz LED 3x3 con centro RGB</a></li>
+            <li><a class="download-button" href="https://github.com/DrBurlao/ESP32/tree/Computercraft/Counter-Strike%20Fake%20Bomb">Counter-Strike Fake Bomb</a></li>
+            <li><a class="download-button" href="https://github.com/DrBurlao/ESP32/tree/Computercraft/SPI-SDCard%20Reader">SPI-SDCard Reader</a></li>
+			<li><a class="download-button" href="https://github.com/DrBurlao/ESP32/tree/Computercraft/Spectrophotometer">Spectrophotometer</a></li>
+        </ul>
+    </div>
+
+    <div class="content" id="circuit-designs"> 
+        <h2>Diseños de Circuitos</h2>
+        <p>Encuentra los esquemas de circuitos para tus proyectos:</p>
+        <ul>
+            <li><a class="download-button" href="#" onclick="openModal('circuits/circuit1.jpg')">LDR calibrable por potenciometro</a></li>
+            <li><a class="download-button" href="#" onclick="openModal('circuits/circuit2.jpg')">Matriz LED 3x3 con RGB central</a></li>
+            <li><a class="download-button" href="#" onclick="openModal('circuits/circuit3.jpg')">SPI-SDCard Reader</a></li>
+        </ul>
+    </div>
+
+    <div class="content" id="resources"> 
+        <h2>Recursos</h2>
+        <p>Accede a recursos útiles para tus proyectos de electrónica:</p>
+        <ul>
+            <li><a class="download-button" href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html">Guía de Inicio Rápido de ESP32</a></li>
+            <li><a class="download-button" href="https://downloads.arduino.cc/arduino-ide/nightly/arduino-ide_nightly-latest_Windows_64bit.zip?_gl=1*1xs5k90*_ga*NTI5NzAxNzkzLjE3MjczODg2ODU.*_ga_NEXN8H46L5*MTcyNzM4ODY4NC4xLjAuMTcyNzM4ODY4OC4wLjAuMjA3NDU5OTI2Mw..*_fplc*SXZJM2VIQzJrZkNKVFBDcVFJb3Nzc1RkVWFwZGI5ZGZES2klMkJCJTJCdmFPdzZkJTJGd2RnbkdQb2dic1FGTXJGU3QzbGxMOTdpaGFYN2VjRk5YSkd3MG0xTzJBZ0Fqc0FBY0FuTyUyQk40VzdVY1UlMkZRTnJIMFVFYWFjZEtWNXliTzhRZyUzRCUzRA..*_gcl_au*MTIzNTg0NjYxMC4xNzI3Mzg4Njg4">Arduino IDE</a></li>
+            <li><a class="download-button" href="https://github.com/SEVA77/circuitjs1/releases/tag/1.3.0">CircuitsJS1 StandAlone</a></li>
+        </ul>
+    </div>
+
+    <div class="content" id="contact"> 
+        <h2>Contacto</h2>
+        <p>Para soporte técnico o consultas, puedes contactarnos:</p>
+        <p>GitHub: <a href="https://github.com/DrBurlao">Contactar BurlaSoft</a></p>
+    </div>
+
+    <div class="content" id="faqs"> 
+        <h2>Preguntas Frecuentes</h2>
+        <ul>
+            <li>¿Qué es ESP32? - Un microcontrolador versátil para proyectos de IoT.</li>
+            <li>¿Cómo empiezo con mis proyectos? - Revisa nuestras guías y recursos.</li>
+            <li>¿Dónde puedo obtener soporte? - Contáctanos a través de GitHub.</li>
+        </ul>
+    </div>
+    
+    <a class="back-to-top" href="#top">▲</a>
+    
+    <footer>
+        <p>© 2022-2024 BurlaSoft. Todos los derechos reservados.</p>
+        <div class="social-links">
+            <a href="#">Facebook</a> |
+            <a href="#">Twitter</a> |
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Circuito" style="max-width: 100%; height: auto;">
+        </div>
+    </div>
+
+    <script>
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Cerrar el modal si se hace clic fuera de la imagen
+        window.onclick = function(event) {
+            var modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
